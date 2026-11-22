@@ -1,0 +1,2158 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>O Que Há Para Jantar?</title>
+  <meta name="description" content="Receitas à portuguesa com o que tens em casa ou com a lista certa para levar do supermercado.">
+  <meta name="theme-color" content="#d9482b">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Jantar?">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap">
+  <style>
+/* O Que Há Para Jantar? — estilos
+ * Paleta inspirada em comida: tomate, açafrão, azeitona e creme.
+ */
+:root {
+  --tomate: #d9482b;
+  --tomate-esc: #b53a20;
+  --tomate-claro: #fde8e2;
+  --acafrao: #f4a93a;
+  --acafrao-claro: #fff1d6;
+  --oliva: #5f7a3b;
+  --oliva-claro: #e7efd9;
+  --creme: #fff6ea;
+  --papel: #fffdf9;
+  --cacau: #2e1f17;
+  --cacau-2: #6b5648;
+  --linha: #eadfcf;
+  --sombra: 0 6px 24px rgba(70, 40, 20, 0.10);
+  --sombra-peq: 0 2px 10px rgba(70, 40, 20, 0.08);
+  --raio: 20px;
+  --raio-peq: 14px;
+  --altura-nav: 68px;
+  --fonte-titulo: "Fraunces", Georgia, "Times New Roman", serif;
+  --fonte: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-size: 16px;
+  font-family: var(--fonte);
+  color: var(--cacau);
+  background: var(--creme);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3 { font-family: var(--fonte-titulo); line-height: 1.15; margin: 0; }
+p { margin: 0; }
+a { color: var(--tomate-esc); }
+img { max-width: 100%; display: block; }
+button { font: inherit; color: inherit; cursor: pointer; }
+button:disabled { cursor: not-allowed; opacity: 0.5; }
+:focus-visible { outline: 3px solid var(--acafrao); outline-offset: 2px; }
+.so-leitor { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---------- Estrutura ---------- */
+.topo { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: rgba(255, 246, 234, 0.92); backdrop-filter: blur(10px); border-bottom: 1px solid var(--linha); }
+.topo-int { max-width: 1120px; margin: 0 auto; padding: 10px 16px; display: flex; align-items: center; gap: 16px; }
+.marca { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: var(--cacau); font-family: var(--fonte-titulo); font-weight: 700; font-size: 1.15rem; }
+.marca-ico { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 12px; background: var(--tomate); font-size: 1.2rem; box-shadow: var(--sombra-peq); }
+.marca-grande { font-size: 1.35rem; }
+.marca-grande .marca-ico { width: 46px; height: 46px; font-size: 1.5rem; }
+.avatar { margin-left: auto; display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%; background: var(--acafrao); color: var(--cacau); font-weight: 700; text-decoration: none; }
+.avatar.grande { width: 64px; height: 64px; font-size: 1.6rem; margin: 0; }
+.nav-desk { display: none; margin-left: auto; gap: 4px; }
+.nav-desk a { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 999px; text-decoration: none; color: var(--cacau-2); font-weight: 600; font-size: 0.95rem; position: relative; }
+.nav-desk a:hover { background: var(--acafrao-claro); }
+.nav-desk a.ativo { background: var(--tomate); color: #fff; }
+.contador { background: var(--acafrao); color: var(--cacau); font-size: 0.7rem; font-weight: 700; border-radius: 999px; min-width: 18px; height: 18px; display: inline-grid; place-items: center; padding: 0 5px; }
+
+.nav-baixo { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; height: var(--altura-nav); display: grid; grid-template-columns: repeat(5, 1fr); background: var(--papel); border-top: 1px solid var(--linha); padding-bottom: env(safe-area-inset-bottom); box-shadow: 0 -4px 20px rgba(70, 40, 20, 0.06); }
+.nav-baixo a { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; text-decoration: none; color: var(--cacau-2); font-size: 0.7rem; font-weight: 600; position: relative; }
+.nav-baixo a .ico { font-size: 1.35rem; line-height: 1; }
+.nav-baixo a.ativo { color: var(--tomate); }
+.nav-baixo .contador { position: absolute; top: 6px; left: calc(50% + 6px); }
+
+.conteudo { max-width: 1120px; margin: 0 auto; padding: 20px 16px calc(var(--altura-nav) + 32px); outline: none; }
+.conteudo.com-barra { padding-bottom: calc(var(--altura-nav) + 100px); }
+main:focus { outline: none; }
+.pagina-estreita { max-width: 640px; margin: 0 auto; }
+.centrado { text-align: center; justify-content: center; margin-left: auto; margin-right: auto; }
+
+@media (min-width: 860px) {
+  .nav-desk { display: flex; }
+  .nav-baixo { display: none; }
+  .avatar { margin-left: 8px; }
+  .conteudo { padding: 32px 24px 64px; }
+  .conteudo.com-barra { padding-bottom: 120px; }
+}
+
+/* ---------- Tipografia e botões ---------- */
+.titulo-pagina { font-size: clamp(1.6rem, 4vw, 2.2rem); }
+.titulo-grande { font-size: clamp(2rem, 6vw, 3.2rem); letter-spacing: -0.02em; }
+.sub { color: var(--cacau-2); margin-top: 6px; }
+.sub-peq { color: var(--cacau-2); font-size: 0.85rem; display: block; }
+.nota { color: var(--cacau-2); font-size: 0.82rem; margin: 10px 0; }
+.ligacao { font-weight: 600; font-size: 0.9rem; }
+.sec-cab { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 28px 0 12px; }
+.sec-titulo { font-size: 1.3rem; }
+.cab-pagina { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 18px; }
+.btn-voltar { display: inline-grid; place-items: center; flex: none; width: 42px; height: 42px; border-radius: 50%; background: var(--papel); border: 1px solid var(--linha); text-decoration: none; color: var(--cacau); font-size: 1.1rem; box-shadow: var(--sombra-peq); }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 20px; border-radius: 999px; border: 2px solid transparent; font-weight: 700; text-decoration: none; transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease; }
+.btn:not(:disabled):hover { transform: translateY(-1px); }
+.btn:not(:disabled):active { transform: translateY(0); }
+.btn-primario { background: var(--tomate); color: #fff; box-shadow: 0 6px 16px rgba(217, 72, 43, 0.3); }
+.btn-primario:not(:disabled):hover { background: var(--tomate-esc); }
+.btn-sec { background: var(--papel); color: var(--cacau); border-color: var(--linha); }
+.btn-sec:not(:disabled):hover { border-color: var(--acafrao); background: var(--acafrao-claro); }
+.btn-fantasma { background: transparent; color: var(--cacau-2); }
+.btn-fantasma:not(:disabled):hover { background: rgba(0, 0, 0, 0.05); }
+.btn-grande { padding: 15px 26px; font-size: 1.05rem; }
+.btn-peq { padding: 8px 14px; font-size: 0.88rem; }
+.btn-bloco { display: flex; width: 100%; }
+.perigo { color: #a32a14; }
+.icone-btn { width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--linha); background: var(--papel); display: inline-grid; place-items: center; }
+
+.rodape-acoes { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-top: 28px; }
+.rodape-acoes.centrado { justify-content: center; }
+.acoes-col { display: grid; gap: 10px; margin-top: 16px; }
+
+/* ---------- Formulários ---------- */
+.campo { display: grid; gap: 6px; margin-bottom: 14px; }
+.campo label { font-weight: 600; font-size: 0.9rem; }
+.campo input, .campo-pass input { width: 100%; padding: 13px 14px; border-radius: var(--raio-peq); border: 2px solid var(--linha); background: var(--papel); font: inherit; color: var(--cacau); }
+.campo input:focus { border-color: var(--acafrao); outline: none; box-shadow: 0 0 0 4px var(--acafrao-claro); }
+.campo-pass { position: relative; }
+.ver-pass { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); border: 0; background: none; font-size: 1.1rem; padding: 6px; }
+.erro-form { background: var(--tomate-claro); color: var(--tomate-esc); padding: 10px 14px; border-radius: var(--raio-peq); font-size: 0.9rem; margin-bottom: 14px; }
+.separador { display: flex; align-items: center; gap: 12px; color: var(--cacau-2); font-size: 0.85rem; margin: 18px 0; }
+.separador::before, .separador::after { content: ""; flex: 1; height: 1px; background: var(--linha); }
+
+/* ---------- Início de sessão ---------- */
+.entrar { min-height: 100vh; display: grid; }
+.entrar-hero { display: none; }
+.entrar-cartao { padding: 32px 22px 40px; max-width: 460px; width: 100%; margin: 0 auto; align-self: center; }
+.entrar-cartao .marca { margin-bottom: 22px; }
+.entrar-titulo { font-size: 2rem; }
+.abas { display: grid; grid-template-columns: 1fr 1fr; background: #f3e8d6; border-radius: 999px; padding: 4px; margin: 20px 0; }
+.aba { border: 0; background: transparent; border-radius: 999px; padding: 10px; font-weight: 700; color: var(--cacau-2); }
+.aba.ativo { background: var(--papel); color: var(--cacau); box-shadow: var(--sombra-peq); }
+@media (min-width: 900px) {
+  .entrar { grid-template-columns: 1.1fr 1fr; }
+  .entrar-hero { display: flex; flex-direction: column; justify-content: center; gap: 18px; padding: 60px; color: #fff; background:
+    radial-gradient(circle at 20% 15%, rgba(244, 169, 58, 0.55), transparent 45%),
+    radial-gradient(circle at 85% 85%, rgba(95, 122, 59, 0.55), transparent 50%),
+    linear-gradient(145deg, #d9482b, #a8321b); }
+  .entrar-hero h2 { font-size: 2.8rem; letter-spacing: -0.02em; }
+  .entrar-hero p { font-size: 1.1rem; opacity: 0.92; max-width: 30ch; }
+  .hero-pratos { display: grid; grid-template-columns: repeat(3, 76px); gap: 14px; margin-bottom: 10px; }
+  .hero-pratos span { display: grid; place-items: center; height: 76px; border-radius: 24px; background: rgba(255, 255, 255, 0.18); font-size: 2.4rem; }
+  .hero-pratos span:nth-child(even) { transform: translateY(14px); }
+}
+
+/* ---------- Supermercados ---------- */
+.loja-selo { display: inline-grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; font-weight: 800; font-family: var(--fonte-titulo); font-size: 1.2rem; flex: none; }
+.loja-selo.grande { width: 56px; height: 56px; border-radius: 16px; font-size: 1.7rem; }
+.loja-selo.enorme { width: 76px; height: 76px; border-radius: 22px; font-size: 2.3rem; margin-bottom: 10px; }
+.grelha-lojas { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 26px 0 8px; }
+@media (min-width: 560px) { .grelha-lojas { grid-template-columns: repeat(4, 1fr); } .pagina-estreita:has(.grelha-lojas) { max-width: 760px; } }
+.loja-cartao { position: relative; display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 18px 10px; background: var(--papel); border: 2px solid var(--linha); border-radius: var(--raio); box-shadow: var(--sombra-peq); transition: transform 0.12s ease, border-color 0.12s ease; }
+.loja-cartao:hover { transform: translateY(-2px); }
+.loja-cartao.sel { border-color: var(--oliva); background: var(--oliva-claro); }
+.loja-nome { font-weight: 700; font-size: 0.95rem; text-align: center; }
+.tique { position: absolute; top: 8px; right: 8px; width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--linha); display: grid; place-items: center; font-size: 0.8rem; font-weight: 800; color: #fff; background: transparent; }
+.sel .tique, .opcao.ativo .tique { background: var(--oliva); border-color: var(--oliva); }
+
+/* ---------- Início ---------- */
+.boas-vindas { margin: 6px 0 4px; }
+.saudacao { color: var(--cacau-2); font-weight: 600; margin-bottom: 4px; }
+.carrossel { position: relative; margin: 0 -16px; }
+.faixa { display: flex; gap: 12px; overflow-x: auto; padding: 4px 16px 14px; scroll-snap-type: x mandatory; scrollbar-width: none; }
+.faixa::-webkit-scrollbar { display: none; }
+.loja-mini { flex: none; width: 150px; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; padding: 16px; background: var(--papel); border: 1px solid var(--linha); border-radius: var(--raio); box-shadow: var(--sombra-peq); scroll-snap-align: start; text-align: left; }
+.loja-mini .loja-nome { text-align: left; margin-top: 4px; }
+.loja-dist { color: var(--cacau-2); font-size: 0.82rem; }
+.carr-controlos { display: none; gap: 6px; }
+.carr-btn { width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--linha); background: var(--papel); font-size: 1.3rem; line-height: 1; }
+@media (min-width: 860px) { .carr-controlos { display: flex; } .carrossel { margin: 0; } .faixa { padding-left: 2px; } .loja-mini { width: 180px; } }
+
+.acoes-principais { display: grid; gap: 14px; margin: 18px 0 8px; }
+@media (min-width: 700px) { .acoes-principais { grid-template-columns: 1fr 1fr; } }
+.acao-cartao { display: flex; align-items: center; gap: 16px; padding: 22px; border-radius: 26px; text-decoration: none; color: #fff; box-shadow: var(--sombra); transition: transform 0.15s ease; }
+.acao-cartao:hover { transform: translateY(-3px); }
+.acao-casa { background: linear-gradient(135deg, #d9482b, #ef7a3c); }
+.acao-compras { background: linear-gradient(135deg, #5f7a3b, #86a04f); }
+.acao-emoji { font-size: 2.6rem; width: 64px; height: 64px; display: grid; place-items: center; background: rgba(255, 255, 255, 0.2); border-radius: 20px; flex: none; }
+.acao-texto { display: grid; gap: 2px; flex: 1; }
+.acao-texto strong { font-family: var(--fonte-titulo); font-size: 1.35rem; }
+.acao-texto span { font-size: 0.92rem; opacity: 0.95; }
+.seta { font-size: 1.6rem; }
+
+/* ---------- Chips ---------- */
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { display: inline-flex; align-items: center; gap: 6px; padding: 9px 14px; border-radius: 999px; border: 2px solid var(--linha); background: var(--papel); font-weight: 600; font-size: 0.92rem; transition: all 0.12s ease; }
+.chip:hover { border-color: var(--acafrao); }
+.chip.ativo { background: var(--tomate); border-color: var(--tomate); color: #fff; }
+.chip.pequeno { padding: 5px 11px; font-size: 0.8rem; background: var(--acafrao-claro); border-color: transparent; cursor: default; }
+.resumo-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+.bloco-titulo { font-family: var(--fonte); font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--cacau-2); margin: 20px 0 10px; }
+
+/* ---------- Cozinha em Casa ---------- */
+.ferramentas-casa { display: flex; gap: 12px; align-items: end; flex-wrap: wrap; }
+.campo-busca { flex: 1; min-width: 220px; margin: 0; }
+.pessoas-mini { display: grid; gap: 4px; font-size: 0.82rem; font-weight: 600; color: var(--cacau-2); }
+.stepper { display: inline-flex; align-items: center; gap: 4px; background: var(--papel); border: 2px solid var(--linha); border-radius: 999px; padding: 3px; }
+.stepper button { width: 32px; height: 32px; border-radius: 50%; border: 0; background: var(--acafrao-claro); font-size: 1.1rem; font-weight: 700; }
+.stepper button:hover { background: var(--acafrao); }
+.stepper output { min-width: 28px; text-align: center; font-weight: 700; padding: 0 6px; white-space: nowrap; }
+.stepper.peq button { width: 28px; height: 28px; }
+.atalhos { display: flex; gap: 8px; flex-wrap: wrap; margin: 14px 0 0; }
+.barra-fixa { position: fixed; left: 0; right: 0; bottom: var(--altura-nav); z-index: 25; padding: 10px 16px; background: linear-gradient(to top, var(--creme) 70%, transparent); }
+.barra-int { max-width: 1120px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; background: var(--papel); border: 1px solid var(--linha); border-radius: 999px; padding: 8px 8px 8px 22px; box-shadow: var(--sombra); }
+.barra-info { font-weight: 600; font-size: 0.95rem; }
+@media (min-width: 860px) { .barra-fixa { bottom: 0; } }
+
+/* ---------- Receitas (cartões) ---------- */
+.grelha-receitas { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+@media (min-width: 640px) { .grelha-receitas { grid-template-columns: repeat(3, 1fr); gap: 16px; } }
+@media (min-width: 960px) { .grelha-receitas { grid-template-columns: repeat(5, 1fr); } }
+.cartao-receita { display: flex; flex-direction: column; background: var(--papel); border-radius: var(--raio); overflow: hidden; text-decoration: none; color: inherit; box-shadow: var(--sombra-peq); border: 1px solid var(--linha); transition: transform 0.15s ease, box-shadow 0.15s ease; }
+.cartao-receita:hover { transform: translateY(-3px); box-shadow: var(--sombra); }
+.foto { position: relative; aspect-ratio: 4 / 3; background: linear-gradient(135deg, var(--acafrao-claro), var(--tomate-claro)); overflow: hidden; }
+.foto::after { content: attr(data-emoji); position: absolute; inset: 0; display: grid; place-items: center; font-size: 3rem; }
+.foto img { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; object-fit: cover; }
+.foto-grande { aspect-ratio: 16 / 9; border-radius: 0; }
+.foto-grande::after { font-size: 6rem; }
+.cartao-corpo { padding: 12px 12px 14px; display: grid; gap: 6px; align-content: start; flex: 1; }
+.cartao-corpo h3 { font-family: var(--fonte); font-size: 0.95rem; font-weight: 700; line-height: 1.25; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.meta { display: flex; flex-wrap: wrap; gap: 4px 10px; font-size: 0.8rem; color: var(--cacau-2); font-weight: 600; }
+.selo-info { justify-self: start; display: inline-block; background: var(--acafrao-claro); color: #8a5a07; font-size: 0.72rem; font-weight: 700; padding: 3px 9px; border-radius: 999px; }
+.selo-info.ok { background: var(--oliva-claro); color: #3f5a1f; }
+.selo-info.meio { background: var(--acafrao-claro); color: #8a5a07; }
+.selo-info.nada { background: var(--tomate-claro); color: var(--tomate-esc); }
+.aviso { background: var(--acafrao-claro); border-left: 4px solid var(--acafrao); padding: 10px 14px; border-radius: 10px; font-size: 0.9rem; margin-bottom: 10px; }
+.cartao-lista { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; background: var(--papel); border: 1px solid var(--linha); border-radius: var(--raio); padding: 14px 16px; margin: 4px 0 18px; box-shadow: var(--sombra-peq); }
+.vazio-texto { color: var(--cacau-2); padding: 12px 0; }
+
+/* ---------- Questionário ---------- */
+.progresso-cab { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; font-weight: 600; color: var(--cacau-2); font-size: 0.9rem; }
+.progresso { height: 8px; background: #f0e3cf; border-radius: 999px; overflow: hidden; margin-bottom: 26px; }
+.progresso span { display: block; height: 100%; background: linear-gradient(90deg, var(--acafrao), var(--tomate)); border-radius: 999px; transition: width 0.3s ease; }
+.opcoes { display: grid; gap: 10px; margin-top: 22px; }
+.opcoes.duas-col { grid-template-columns: repeat(2, 1fr); }
+.opcao { position: relative; display: flex; align-items: center; gap: 12px; padding: 16px; text-align: left; background: var(--papel); border: 2px solid var(--linha); border-radius: var(--raio); transition: all 0.12s ease; }
+.opcao:hover { border-color: var(--acafrao); }
+.opcao.ativo { border-color: var(--oliva); background: var(--oliva-claro); }
+.opcao-emoji { font-size: 1.8rem; flex: none; }
+.opcao-texto { display: grid; }
+.opcao-texto small { color: var(--cacau-2); font-size: 0.8rem; }
+.opcoes.duas-col .opcao { flex-direction: column; text-align: center; padding: 18px 10px; }
+@media (min-width: 560px) { .opcoes.duas-col { grid-template-columns: repeat(3, 1fr); } }
+
+/* ---------- Detalhe da receita ---------- */
+.receita { background: var(--papel); border-radius: 28px; overflow: hidden; box-shadow: var(--sombra); border: 1px solid var(--linha); }
+.receita-hero { position: relative; }
+.flutuante { position: absolute; top: 14px; z-index: 2; }
+.btn-voltar.flutuante { left: 14px; }
+.btn-fav { right: 14px; width: 44px; height: 44px; border-radius: 50%; border: 0; background: var(--papel); box-shadow: var(--sombra-peq); font-size: 1.4rem; color: var(--tomate); }
+.btn-fav.ativo { background: var(--tomate); color: #fff; }
+.receita-corpo { padding: 22px 18px 28px; }
+.pills { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 6px; }
+.pill { background: var(--acafrao-claro); border-radius: 999px; padding: 6px 12px; font-size: 0.85rem; font-weight: 600; }
+.pill-verde { background: var(--oliva-claro); color: #3f5a1f; }
+.receita-grelha { display: grid; gap: 8px; }
+@media (min-width: 860px) { .receita-grelha { grid-template-columns: 380px 1fr; gap: 40px; align-items: start; } .receita-corpo { padding: 32px; } .ingredientes { position: sticky; top: 90px; } }
+.resumo-casa { background: var(--oliva-claro); border-radius: 12px; padding: 10px 12px; font-size: 0.88rem; margin-bottom: 10px; }
+.lista-ing { list-style: none; margin: 0 0 16px; padding: 0; }
+.ing-linha { display: flex; align-items: center; gap: 8px; padding: 11px 0; border-bottom: 1px dashed var(--linha); }
+.ing-nome { flex: 1; font-weight: 600; }
+.ing-qtd { color: var(--cacau-2); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ing-linha.falta .ing-nome { color: var(--tomate-esc); }
+.tag { font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; border-radius: 6px; padding: 2px 6px; }
+.tag-ok { background: var(--oliva-claro); color: #3f5a1f; }
+.tag-falta { background: var(--tomate-claro); color: var(--tomate-esc); }
+.lista-passos { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 10px; }
+.passo-btn { display: flex; gap: 14px; align-items: flex-start; width: 100%; text-align: left; padding: 14px; border-radius: var(--raio-peq); border: 2px solid var(--linha); background: var(--papel); }
+.passo-num { flex: none; width: 32px; height: 32px; border-radius: 50%; background: var(--tomate); color: #fff; display: grid; place-items: center; font-weight: 800; }
+.passo.feito .passo-btn { background: var(--oliva-claro); border-color: transparent; }
+.passo.feito .passo-num { background: var(--oliva); }
+.passo.feito .passo-txt { text-decoration: line-through; color: var(--cacau-2); }
+
+/* ---------- Lista de compras ---------- */
+.lista-layout { display: grid; gap: 8px; }
+@media (min-width: 900px) { .lista-layout { grid-template-columns: 1fr 340px; gap: 32px; align-items: start; } .lista-lateral { position: sticky; top: 90px; } }
+.loja-escolha { margin-bottom: 8px; display: grid; gap: 8px; }
+.lista-grupo ul { list-style: none; margin: 0; padding: 0; background: var(--papel); border-radius: var(--raio-peq); border: 1px solid var(--linha); overflow: hidden; }
+.item-lista + .item-lista { border-top: 1px solid var(--linha); }
+.item-btn { display: flex; align-items: center; gap: 12px; width: 100%; text-align: left; padding: 12px 14px; border: 0; background: transparent; }
+.caixa { flex: none; width: 24px; height: 24px; border-radius: 8px; border: 2px solid var(--linha); display: grid; place-items: center; font-weight: 800; color: #fff; }
+.item-lista.feito .caixa { background: var(--oliva); border-color: var(--oliva); }
+.item-nome { flex: 1; display: grid; font-weight: 600; }
+.item-nome small { color: var(--cacau-2); font-weight: 400; font-size: 0.78rem; }
+.item-preco { font-variant-numeric: tabular-nums; font-weight: 700; }
+.item-lista.feito .item-nome, .item-lista.feito .item-preco { text-decoration: line-through; color: var(--cacau-2); }
+.basicos-txt { background: var(--papel); border: 1px dashed var(--linha); border-radius: var(--raio-peq); padding: 12px 14px; color: var(--cacau-2); font-size: 0.9rem; }
+.total { display: grid; gap: 2px; background: var(--tomate); color: #fff; padding: 18px 20px; border-radius: var(--raio); box-shadow: var(--sombra); margin-top: 20px; }
+.total strong { font-family: var(--fonte-titulo); font-size: 2.2rem; }
+.total small { opacity: 0.85; }
+.comparacao ol { list-style: none; margin: 0; padding: 0; background: var(--papel); border: 1px solid var(--linha); border-radius: var(--raio-peq); overflow: hidden; }
+.comparacao li { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; gap: 8px; }
+.comparacao li + li { border-top: 1px solid var(--linha); }
+.comparacao li.melhor { background: var(--oliva-claro); }
+.lista-receitas { display: grid; }
+.lista-receita { display: flex; align-items: center; gap: 8px; padding: 10px 12px; }
+.lista-receita + .lista-receita { border-top: 1px solid var(--linha); }
+.lr-nome { flex: 1; font-weight: 600; font-size: 0.9rem; text-decoration: none; color: var(--cacau); }
+.vazio { text-align: center; padding: 48px 16px; max-width: 460px; margin: 0 auto; display: grid; gap: 10px; }
+.vazio-emoji { font-size: 4rem; }
+.vazio p { color: var(--cacau-2); }
+
+/* ---------- Perfil ---------- */
+.cartao-perfil { display: flex; align-items: center; gap: 16px; background: var(--papel); border: 1px solid var(--linha); border-radius: var(--raio); padding: 18px; box-shadow: var(--sombra-peq); }
+.perfil-nome { font-family: var(--fonte-titulo); font-size: 1.3rem; display: block; }
+.acoes-conta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+
+/* ---------- Janela de loja ---------- */
+.modal { position: fixed; inset: 0; z-index: 50; background: rgba(46, 31, 23, 0.5); display: flex; align-items: flex-end; justify-content: center; }
+.folha { position: relative; background: var(--papel); width: 100%; max-width: 440px; border-radius: 28px 28px 0 0; padding: 28px 22px calc(28px + env(safe-area-inset-bottom)); animation: subir 0.22s ease-out; }
+.fechar { position: absolute; top: 14px; right: 14px; }
+@media (min-width: 560px) { .modal { align-items: center; } .folha { border-radius: 28px; } }
+@keyframes subir { from { transform: translateY(40px); opacity: 0; } to { transform: none; opacity: 1; } }
+
+/* ---------- Aviso rápido ---------- */
+.toast { position: fixed; left: 50%; bottom: calc(var(--altura-nav) + 90px); transform: translate(-50%, 20px); background: var(--cacau); color: #fff; padding: 12px 20px; border-radius: 999px; font-weight: 600; font-size: 0.9rem; opacity: 0; pointer-events: none; transition: all 0.25s ease; z-index: 60; max-width: calc(100% - 32px); text-align: center; }
+.toast.visivel { opacity: 1; transform: translate(-50%, 0); }
+@media (min-width: 860px) { .toast { bottom: 100px; } }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+
+@media print {
+  .topo, .nav-baixo, .nav-desk, .barra-fixa, .rodape-acoes, .acoes-col, .btn-voltar, .btn-fav, .toast { display: none !important; }
+  body { background: #fff; }
+}
+
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 40; background: var(--creme); }
+
+</style>
+</head>
+<body>
+  <div id="app"></div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <noscript>Esta aplicação precisa de JavaScript para funcionar.</noscript>
+
+  <script>
+/* O Que Há Para Jantar? — dados de demonstração
+ *
+ * Tudo o que está neste ficheiro é fictício/estimado e serve apenas para o protótipo:
+ * preços, distâncias e índices de preço dos supermercados NÃO são dados reais.
+ *
+ * Formato dos ingredientes de uma receita: [idDoIngrediente, quantidade] para 2 pessoas.
+ * Os "básicos da despensa" (sal, azeite…) não levam quantidade e aparecem como "q.b.".
+ * Nos passos, [[450|ml]] é uma quantidade que se ajusta ao número de pessoas.
+ */
+(function (raiz) {
+  'use strict';
+
+  /* ---------- Supermercados ---------- */
+  // cor/texto: só para o selo colorido na interface (não são logótipos).
+  // indice: multiplicador de preço de demonstração. dist: distância fictícia em km.
+  const supermercados = [
+    { id: 'continente', nome: 'Continente', cor: '#E2231A', texto: '#FFFFFF', indice: 1.04, dist: 0.8 },
+    { id: 'pingo-doce', nome: 'Pingo Doce', cor: '#2E9B3E', texto: '#FFFFFF', indice: 1.03, dist: 1.2 },
+    { id: 'lidl', nome: 'Lidl', cor: '#0A56B3', texto: '#FFE500', indice: 0.93, dist: 1.6 },
+    { id: 'aldi', nome: 'Aldi', cor: '#1B2B7A', texto: '#FFFFFF', indice: 0.91, dist: 2.4 },
+    { id: 'auchan', nome: 'Auchan', cor: '#C8102E', texto: '#FFFFFF', indice: 1.0, dist: 3.1 },
+    { id: 'mercadona', nome: 'Mercadona', cor: '#00873C', texto: '#FFFFFF', indice: 0.96, dist: 2.0 },
+    { id: 'intermarche', nome: 'Intermarché', cor: '#E8412C', texto: '#FFFFFF', indice: 0.99, dist: 1.9 },
+    { id: 'minipreco', nome: 'Minipreço', cor: '#D4122A', texto: '#FFFFFF', indice: 1.05, dist: 0.5 }
+  ];
+
+  /* ---------- Categorias (ordem de apresentação) ---------- */
+  const categorias = {
+    legumes: 'Legumes e fruta',
+    carnes: 'Carnes',
+    peixe: 'Peixe',
+    laticinios: 'Ovos e lacticínios',
+    mercearia: 'Mercearia',
+    massas: 'Massas e pão',
+    despensa: 'Básicos da despensa'
+  };
+  const ordemCategorias = ['legumes', 'carnes', 'peixe', 'laticinios', 'mercearia', 'massas', 'despensa'];
+
+  /* ---------- Ingredientes ----------
+   * n: nome · c: categoria · u: unidade (g, ml, un, dentes, lata, molho, fatias)
+   * emb: tamanho da embalagem na unidade u · p: preço da embalagem (€, estimativa)
+   * o: origem animal ('carne' | 'peixe' | 'animal') · a: alergénios · porco: true se tem porco
+   * b: true = básico da despensa (assume-se que existe em casa)
+   */
+  const ingredientes = {
+    // Legumes e fruta
+    cebola:      { n: 'Cebola',      c: 'legumes', u: 'un',     emb: 5,    p: 1.19, e: '🧅' },
+    alho:        { n: 'Alho',        c: 'legumes', u: 'dentes', emb: 10,   p: 0.45, e: '🧄' },
+    tomate:      { n: 'Tomate',      c: 'legumes', u: 'g',      emb: 1000, p: 2.19, e: '🍅' },
+    cenoura:     { n: 'Cenoura',     c: 'legumes', u: 'g',      emb: 1000, p: 1.19, e: '🥕' },
+    batata:      { n: 'Batata',      c: 'legumes', u: 'g',      emb: 2000, p: 1.89, e: '🥔' },
+    courgette:   { n: 'Courgette',   c: 'legumes', u: 'g',      emb: 500,  p: 1.29, e: '🥒' },
+    brocolos:    { n: 'Brócolos',    c: 'legumes', u: 'g',      emb: 500,  p: 1.59, e: '🥦' },
+    espinafres:  { n: 'Espinafres',  c: 'legumes', u: 'g',      emb: 250,  p: 1.39, e: '🥬' },
+    cogumelos:   { n: 'Cogumelos',   c: 'legumes', u: 'g',      emb: 250,  p: 1.79, e: '🍄' },
+    pimento:     { n: 'Pimento',     c: 'legumes', u: 'un',     emb: 3,    p: 1.69, e: '🫑' },
+    couve:       { n: 'Couve',       c: 'legumes', u: 'g',      emb: 500,  p: 1.29, e: '🥬' },
+    alface:      { n: 'Alface',      c: 'legumes', u: 'un',     emb: 1,    p: 0.99, e: '🥬' },
+    pepino:      { n: 'Pepino',      c: 'legumes', u: 'un',     emb: 1,    p: 0.79, e: '🥒' },
+    limao:       { n: 'Limão',       c: 'legumes', u: 'un',     emb: 4,    p: 1.19, e: '🍋' },
+    salsa:       { n: 'Salsa',       c: 'legumes', u: 'molho',  emb: 1,    p: 0.69, e: '🌿' },
+
+    // Carnes
+    frango_peito: { n: 'Peito de frango', c: 'carnes', u: 'g', emb: 500,  p: 3.99, e: '🍗', o: 'carne' },
+    frango_coxas: { n: 'Coxas de frango', c: 'carnes', u: 'g', emb: 1000, p: 3.49, e: '🍗', o: 'carne' },
+    carne_picada: { n: 'Carne picada',    c: 'carnes', u: 'g', emb: 500,  p: 4.29, e: '🥩', o: 'carne' },
+    bife_vaca:    { n: 'Bife de vaca',    c: 'carnes', u: 'g', emb: 400,  p: 6.49, e: '🥩', o: 'carne' },
+    bife_peru:    { n: 'Bife de peru',    c: 'carnes', u: 'g', emb: 500,  p: 5.49, e: '🥩', o: 'carne' },
+    bacon:        { n: 'Bacon',           c: 'carnes', u: 'g', emb: 150,  p: 1.79, e: '🥓', o: 'carne', porco: true },
+    fiambre:      { n: 'Fiambre',         c: 'carnes', u: 'g', emb: 200,  p: 1.49, e: '🍖', o: 'carne', porco: true },
+    salsicha:     { n: 'Salsichas',       c: 'carnes', u: 'un', emb: 8,   p: 1.79, e: '🌭', o: 'carne', porco: true },
+    chourico:     { n: 'Chouriço',        c: 'carnes', u: 'g', emb: 200,  p: 2.39, e: '🌶️', o: 'carne', porco: true },
+
+    // Peixe
+    bacalhau_demolhado: { n: 'Bacalhau demolhado', c: 'peixe', u: 'g', emb: 500, p: 8.49, e: '🐟', o: 'peixe' },
+    salmao:    { n: 'Salmão',            c: 'peixe', u: 'g',    emb: 250, p: 5.49, e: '🐟', o: 'peixe' },
+    atum_lata: { n: 'Atum em lata',      c: 'peixe', u: 'lata', emb: 1,   p: 1.39, e: '🥫', o: 'peixe' },
+    pescada:   { n: 'Pescada (filetes)', c: 'peixe', u: 'g',    emb: 400, p: 4.49, e: '🐟', o: 'peixe' },
+    dourada:   { n: 'Dourada',           c: 'peixe', u: 'un',   emb: 1,   p: 5.99, e: '🐠', o: 'peixe' },
+
+    // Ovos e lacticínios
+    ovos:          { n: 'Ovos',            c: 'laticinios', u: 'un', emb: 6,    p: 1.69, e: '🥚', o: 'animal', a: ['ovos'] },
+    leite:         { n: 'Leite',           c: 'laticinios', u: 'ml', emb: 1000, p: 0.89, e: '🥛', o: 'animal', a: ['lactose'] },
+    natas:         { n: 'Natas',           c: 'laticinios', u: 'ml', emb: 200,  p: 0.99, e: '🥛', o: 'animal', a: ['lactose'] },
+    queijo_ralado: { n: 'Queijo ralado',   c: 'laticinios', u: 'g',  emb: 150,  p: 1.39, e: '🧀', o: 'animal', a: ['lactose'] },
+    queijo_fatiado:{ n: 'Queijo fatiado',  c: 'laticinios', u: 'g',  emb: 200,  p: 1.69, e: '🧀', o: 'animal', a: ['lactose'] },
+    mozzarella:    { n: 'Mozzarella',      c: 'laticinios', u: 'g',  emb: 125,  p: 0.99, e: '🧀', o: 'animal', a: ['lactose'] },
+    manteiga:      { n: 'Manteiga',        c: 'laticinios', u: 'g',  emb: 250,  p: 2.19, e: '🧈', o: 'animal', a: ['lactose'] },
+
+    // Mercearia
+    arroz:        { n: 'Arroz agulha',        c: 'mercearia', u: 'g',  emb: 1000, p: 1.35, e: '🍚' },
+    grao:         { n: 'Grão-de-bico cozido', c: 'mercearia', u: 'g',  emb: 540,  p: 0.99, e: '🫘' },
+    feijao:       { n: 'Feijão cozido',       c: 'mercearia', u: 'g',  emb: 410,  p: 0.95, e: '🫘' },
+    lentilhas:    { n: 'Lentilhas secas',     c: 'mercearia', u: 'g',  emb: 500,  p: 1.49, e: '🫘' },
+    leite_coco:   { n: 'Leite de coco',       c: 'mercearia', u: 'ml', emb: 400,  p: 1.39, e: '🥥' },
+    caril:        { n: 'Caril em pó',         c: 'mercearia', u: 'g',  emb: 40,   p: 1.29, e: '🟡' },
+    tofu:         { n: 'Tofu',                c: 'mercearia', u: 'g',  emb: 250,  p: 1.59, e: '🧊' },
+    polpa_tomate: { n: 'Polpa de tomate',     c: 'mercearia', u: 'g',  emb: 500,  p: 0.79, e: '🥫' },
+    azeitonas:    { n: 'Azeitonas',           c: 'mercearia', u: 'g',  emb: 200,  p: 1.19, e: '🫒' },
+    ketchup:      { n: 'Ketchup',             c: 'mercearia', u: 'g',  emb: 250,  p: 1.29, e: '🍅' },
+    mostarda:     { n: 'Mostarda',            c: 'mercearia', u: 'g',  emb: 100,  p: 0.99, e: '🟨' },
+    maionese:     { n: 'Maionese',            c: 'mercearia', u: 'g',  emb: 225,  p: 1.49, e: '🥄', a: ['ovos'] },
+    molho_soja:   { n: 'Molho de soja',       c: 'mercearia', u: 'ml', emb: 150,  p: 1.69, e: '🍶', a: ['gluten'] },
+    farinha:      { n: 'Farinha de trigo',    c: 'mercearia', u: 'g',  emb: 1000, p: 0.89, e: '🌾', a: ['gluten'] },
+
+    // Massas e pão
+    esparguete:     { n: 'Esparguete',            c: 'massas', u: 'g',      emb: 500, p: 0.89, e: '🍝', a: ['gluten'] },
+    penne:          { n: 'Penne',                 c: 'massas', u: 'g',      emb: 500, p: 0.89, e: '🍝', a: ['gluten'] },
+    massa_lasanha:  { n: 'Folhas de lasanha',     c: 'massas', u: 'g',      emb: 500, p: 1.29, e: '🍝', a: ['gluten'] },
+    pao_carcaca:    { n: 'Pão carcaça',           c: 'massas', u: 'un',     emb: 6,   p: 1.19, e: '🥖', a: ['gluten'] },
+    pao_hamburguer: { n: 'Pão de hambúrguer',     c: 'massas', u: 'un',     emb: 4,   p: 1.39, e: '🍔', a: ['gluten'] },
+    pao_cachorro:   { n: 'Pão de cachorro',       c: 'massas', u: 'un',     emb: 4,   p: 1.29, e: '🌭', a: ['gluten'] },
+    pao_forma:      { n: 'Pão de forma',          c: 'massas', u: 'fatias', emb: 20,  p: 1.39, e: '🍞', a: ['gluten'] },
+    wraps:          { n: 'Tortilhas (wraps)',     c: 'massas', u: 'un',     emb: 6,   p: 1.59, e: '🌯', a: ['gluten'] },
+    base_pizza:     { n: 'Base de pizza',         c: 'massas', u: 'un',     emb: 2,   p: 1.99, e: '🍕', a: ['gluten'] },
+
+    // Básicos da despensa (b: true → "q.b.", sem preço)
+    sal:      { n: 'Sal',            c: 'despensa', b: true, e: '🧂' },
+    pimenta:  { n: 'Pimenta',        c: 'despensa', b: true, e: '⚫' },
+    azeite:   { n: 'Azeite',         c: 'despensa', b: true, e: '🫒' },
+    oleo:     { n: 'Óleo',           c: 'despensa', b: true, e: '🛢️' },
+    louro:    { n: 'Folha de louro', c: 'despensa', b: true, e: '🍃' },
+    oregaos:  { n: 'Orégãos',        c: 'despensa', b: true, e: '🌿' },
+    colorau:  { n: 'Colorau',        c: 'despensa', b: true, e: '🌶️' },
+    vinagre:  { n: 'Vinagre',        c: 'despensa', b: true, e: '🍾' }
+  };
+
+  /* ---------- Receitas ---------- */
+  function r(id, nome, tempo, dificuldade, cat, emoji, fotoTags, desc, ing, passos) {
+    return { id, nome, tempo, dificuldade, cat, emoji, fotoTags, desc, porcoes: 2, ing, passos };
+  }
+
+  const receitas = [
+    r('arroz-de-frango', 'Arroz de frango da casa', 45, 'Fácil', ['arroz', 'carne'], '🍗', 'chicken,rice',
+      'Um arroz malandrinho e cheio de sabor, feito num só tacho.',
+      [['frango_coxas', 500], ['arroz', 160], ['cebola', 1], ['alho', 2], ['cenoura', 100], ['salsa', 0.5], ['azeite'], ['louro'], ['sal'], ['pimenta']],
+      ['Tempera o frango com sal, pimenta e o alho picado. Deixa repousar 10 minutos.',
+       'Num tacho, aquece um fio de azeite e refoga a cebola picada com o louro até ficar transparente.',
+       'Junta o frango e deixa alourar durante 8 minutos, virando de vez em quando.',
+       'Adiciona a cenoura às rodelas e cobre com [[450|ml]] de água a ferver. Tapa e deixa cozinhar 15 minutos.',
+       'Junta o arroz, mexe uma vez e cozinha em lume brando, tapado, durante 15 minutos. Acerta o sal.',
+       'Deixa repousar 5 minutos e serve com a salsa picada.']),
+
+    r('esparguete-a-bolonhesa', 'Esparguete à bolonhesa', 35, 'Fácil', ['massa', 'carne'], '🍝', 'spaghetti,bolognese',
+      'O clássico de todas as casas, com molho de carne bem apurado.',
+      [['esparguete', 180], ['carne_picada', 250], ['cebola', 1], ['alho', 2], ['cenoura', 80], ['polpa_tomate', 200], ['queijo_ralado', 30], ['azeite'], ['oregaos'], ['sal'], ['pimenta']],
+      ['Refoga a cebola e o alho picados com a cenoura ralada em azeite, durante 5 minutos.',
+       'Junta a carne picada e desfaz-a com uma colher até perder a cor (cerca de 8 minutos).',
+       'Adiciona a polpa de tomate, os orégãos, sal, pimenta e [[100|ml]] de água. Cozinha em lume brando 20 minutos.',
+       'Entretanto, coze o esparguete em água com sal, conforme as indicações da embalagem.',
+       'Escorre a massa, mistura com o molho e serve com queijo ralado.']),
+
+    r('bacalhau-com-natas', 'Bacalhau com natas', 50, 'Média', ['peixe'], '🐟', 'codfish,cream',
+      'Cremoso, dourado no forno e sempre uma festa à mesa.',
+      [['bacalhau_demolhado', 300], ['batata', 400], ['cebola', 1], ['alho', 1], ['natas', 200], ['queijo_ralado', 30], ['salsa', 0.5], ['azeite'], ['pimenta']],
+      ['Liga o forno a 200 °C. Coze a batata em cubos durante 10 minutos e escorre.',
+       'Refoga a cebola e o alho picados em azeite, durante 5 minutos.',
+       'Junta o bacalhau em lascas, sem pele nem espinhas, e deixa 3 minutos.',
+       'Adiciona as natas e a pimenta (o bacalhau já é salgado, por isso prova antes de pôr sal). Mistura com a batata.',
+       'Passa para um pirex, polvilha com queijo ralado e leva ao forno 15 a 20 minutos, até gratinar.',
+       'Serve com salsa picada.']),
+
+    r('omelete-de-cogumelos', 'Omelete de cogumelos e queijo', 15, 'Fácil', [], '🍳', 'omelette,mushroom',
+      'Rápida, leve e perfeita para quando o tempo aperta.',
+      [['ovos', 4], ['cogumelos', 150], ['queijo_fatiado', 40], ['manteiga', 15], ['salsa', 0.5], ['sal'], ['pimenta']],
+      ['Lamina os cogumelos e salteia-os em metade da manteiga, em lume forte, durante 4 minutos. Tempera e reserva.',
+       'Bate os ovos com sal e pimenta.',
+       'Derrete o resto da manteiga numa frigideira antiaderente e deita os ovos.',
+       'Quando estiver semi-cozida, coloca os cogumelos e o queijo numa metade e dobra a omelete.',
+       'Deixa 1 minuto e serve com salsa picada.']),
+
+    r('hamburguer-caseiro', 'Hambúrguer caseiro no pão', 25, 'Fácil', ['fastfood', 'carne'], '🍔', 'hamburger,burger',
+      'Muito melhor do que o de take-away e pronto num instante.',
+      [['carne_picada', 300], ['pao_hamburguer', 2], ['alface', 0.5], ['tomate', 100], ['queijo_fatiado', 40], ['cebola', 0.5], ['ketchup', 30], ['mostarda', 10], ['azeite'], ['sal'], ['pimenta']],
+      ['Tempera a carne com sal, pimenta e mostarda. Forma hambúrgueres achatados.',
+       'Grelha numa frigideira bem quente com um fio de azeite, 4 minutos de cada lado.',
+       'No último minuto, coloca o queijo por cima para derreter.',
+       'Torra os pães 1 minuto na frigideira.',
+       'Monta com ketchup, alface, tomate e cebola às rodelas e o hambúrguer.']),
+
+    r('pizza-margherita', 'Pizza caseira margherita', 25, 'Fácil', ['fastfood'], '🍕', 'pizza,margherita',
+      'Base pronta, molho de tomate e muita mozzarella.',
+      [['base_pizza', 2], ['polpa_tomate', 120], ['mozzarella', 250], ['azeite'], ['oregaos'], ['sal']],
+      ['Liga o forno a 220 °C.',
+       'Tempera a polpa de tomate com sal, orégãos e um fio de azeite.',
+       'Espalha o molho sobre as bases e distribui a mozzarella aos pedaços.',
+       'Leva ao forno 10 a 12 minutos (confirma o tempo na embalagem das bases), até a mozzarella derreter e dourar.',
+       'Termina com um fio de azeite e serve logo.']),
+
+    r('prego-no-pao', 'Prego no pão', 20, 'Fácil', ['fastfood', 'carne'], '🥪', 'steak,sandwich',
+      'Um clássico das tascas portuguesas, com molho de alho e manteiga.',
+      [['bife_vaca', 250], ['pao_carcaca', 2], ['alho', 2], ['manteiga', 15], ['mostarda', 10], ['azeite'], ['sal'], ['pimenta']],
+      ['Tempera os bifes (finos) com sal, pimenta e metade do alho picado. Deixa 10 minutos.',
+       'Numa frigideira quente com um fio de azeite, grelha os bifes 1 a 2 minutos de cada lado. Reserva.',
+       'Baixa o lume, junta a manteiga, o resto do alho e [[50|ml]] de água. Deixa ferver 1 minuto para fazer o molho.',
+       'Abre os pães, barra com mostarda e enche com o bife e o molho.']),
+
+    r('arroz-de-tomate-com-ovo', 'Arroz de tomate com ovo estrelado', 30, 'Fácil', ['arroz'], '🍅', 'tomato,rice',
+      'Simples, económico e reconfortante.',
+      [['arroz', 160], ['tomate', 300], ['cebola', 1], ['alho', 1], ['ovos', 2], ['salsa', 0.5], ['azeite'], ['louro'], ['sal'], ['pimenta']],
+      ['Refoga a cebola, o alho e o louro em azeite durante 5 minutos.',
+       'Junta o tomate sem pele e picado e deixa cozinhar 8 minutos, até desfazer.',
+       'Adiciona o arroz, mexe 1 minuto, cobre com [[400|ml]] de água a ferver e tempera com sal. Tapa e cozinha em lume brando 15 minutos.',
+       'Numa frigideira com azeite, estrela os ovos.',
+       'Serve o arroz com o ovo por cima e salsa picada.']),
+
+    r('massa-com-atum', 'Massa com atum e tomate', 20, 'Fácil', ['massa', 'peixe'], '🍝', 'pasta,tuna',
+      'Um prato de despensa que safa qualquer jantar.',
+      [['penne', 180], ['atum_lata', 2], ['polpa_tomate', 200], ['cebola', 1], ['alho', 2], ['azeitonas', 40], ['azeite'], ['oregaos'], ['sal'], ['pimenta']],
+      ['Coze o penne em água com sal, conforme a embalagem.',
+       'Refoga a cebola e o alho picados em azeite durante 5 minutos.',
+       'Junta a polpa de tomate, os orégãos, sal e pimenta e deixa 8 minutos.',
+       'Adiciona o atum escorrido e as azeitonas e aquece 2 minutos.',
+       'Mistura com a massa escorrida e serve.']),
+
+    r('salmao-grelhado', 'Salmão grelhado com batata e brócolos', 30, 'Fácil', ['peixe'], '🐟', 'salmon,broccoli',
+      'Uma refeição equilibrada e rápida de fazer.',
+      [['salmao', 250], ['batata', 400], ['brocolos', 250], ['limao', 0.5], ['alho', 1], ['azeite'], ['sal'], ['pimenta']],
+      ['Coze a batata às rodelas em água com sal durante 12 minutos, juntando os brócolos nos últimos 5. Escorre.',
+       'Tempera o salmão com sal, pimenta e sumo de limão.',
+       'Grelha numa frigideira com azeite, 4 minutos do lado da pele e 3 minutos do outro.',
+       'Salteia a batata e os brócolos com o alho laminado durante 2 minutos.',
+       'Serve o salmão com os legumes e uma rodela de limão.']),
+
+    r('caril-de-grao-e-espinafres', 'Caril de grão-de-bico e espinafres', 30, 'Fácil', ['arroz'], '🍛', 'chickpea,curry',
+      'Vegan, cremoso e cheio de sabor, com leite de coco.',
+      [['grao', 270], ['arroz', 160], ['espinafres', 120], ['leite_coco', 200], ['cebola', 1], ['alho', 2], ['caril', 6], ['polpa_tomate', 100], ['azeite'], ['sal']],
+      ['Coze o arroz em água com sal durante 12 a 15 minutos e escorre.',
+       'Refoga a cebola e o alho em azeite durante 5 minutos. Junta o caril e mexe 30 segundos.',
+       'Adiciona a polpa de tomate, o leite de coco e o grão escorrido. Cozinha 10 minutos em lume brando.',
+       'Junta os espinafres e deixa 2 minutos até murcharem. Acerta o sal.',
+       'Serve sobre o arroz.']),
+
+    r('esparguete-aglio-e-olio', 'Esparguete aglio e olio com brócolos', 20, 'Fácil', ['massa'], '🍝', 'spaghetti,garlic',
+      'Alho, azeite e brócolos: simples e viciante.',
+      [['esparguete', 180], ['brocolos', 200], ['alho', 4], ['azeite'], ['colorau'], ['sal'], ['pimenta']],
+      ['Coze o esparguete em água com sal. Nos últimos 4 minutos, junta os brócolos em raminhos.',
+       'Entretanto, aquece azeite em lume brando e deixa o alho laminado perfumar 2 minutos, sem queimar.',
+       'Escorre a massa e os brócolos, guardando um pouco da água da cozedura.',
+       'Mistura tudo na frigideira com o alho, um fio da água guardada, colorau e pimenta.',
+       'Serve de imediato.']),
+
+    r('sopa-de-legumes-e-feijao', 'Sopa de legumes e feijão', 35, 'Fácil', [], '🥣', 'vegetable,soup',
+      'Uma sopa reconfortante e completa.',
+      [['batata', 250], ['cenoura', 150], ['cebola', 1], ['couve', 100], ['feijao', 200], ['alho', 1], ['azeite'], ['sal']],
+      ['Refoga a cebola e o alho em azeite durante 3 minutos.',
+       'Junta a batata e a cenoura em cubos e cobre com [[700|ml]] de água. Tempera com sal e cozinha 20 minutos.',
+       'Tritura parte da sopa para ficar cremosa, deixando alguns pedaços.',
+       'Junta o feijão e a couve em tiras e deixa mais 8 minutos.',
+       'Serve com um fio de azeite cru.']),
+
+    r('bifes-de-peru-com-arroz-de-cenoura', 'Bifes de peru com arroz de cenoura', 30, 'Fácil', ['arroz', 'carne'], '🥩', 'turkey,rice',
+      'Bifes suculentos com um arroz colorido.',
+      [['bife_peru', 300], ['arroz', 160], ['cenoura', 120], ['alho', 2], ['limao', 0.5], ['azeite'], ['louro'], ['sal'], ['pimenta']],
+      ['Tempera os bifes com sal, pimenta, alho picado e sumo de limão. Deixa 10 minutos.',
+       'Refoga o louro e a cenoura ralada em azeite durante 3 minutos. Junta o arroz e mexe 1 minuto.',
+       'Cobre com [[350|ml]] de água a ferver, tempera com sal, tapa e cozinha 15 minutos em lume brando.',
+       'Grelha os bifes numa frigideira com um fio de azeite, 3 minutos de cada lado.',
+       'Serve os bifes com o arroz.']),
+
+    r('tosta-mista', 'Tosta mista', 10, 'Fácil', ['fastfood', 'carne'], '🥪', 'grilled,cheese,sandwich',
+      'O lanche (ou jantar!) mais rápido de sempre.',
+      [['pao_forma', 4], ['fiambre', 80], ['queijo_fatiado', 60], ['manteiga', 20]],
+      ['Barra a manteiga por fora das fatias de pão.',
+       'Monta as tostas com o fiambre e o queijo por dentro.',
+       'Aquece numa frigideira (ou sanduicheira) 3 minutos de cada lado, até ficar dourada e o queijo derreter.',
+       'Corta em triângulos e serve quente.']),
+
+    r('wrap-de-frango', 'Wrap de frango e legumes', 25, 'Fácil', ['fastfood', 'carne'], '🌯', 'chicken,wrap',
+      'Fresco, rápido e fácil de levar para qualquer lado.',
+      [['wraps', 2], ['frango_peito', 250], ['alface', 0.5], ['tomate', 100], ['pepino', 0.5], ['maionese', 20], ['colorau'], ['azeite'], ['sal'], ['pimenta']],
+      ['Corta o frango em tiras e tempera com sal, pimenta e colorau.',
+       'Salteia em azeite, em lume forte, durante 6 a 8 minutos, até ficar bem cozinhado.',
+       'Aquece as tortilhas 20 segundos de cada lado.',
+       'Barra com maionese e junta alface, tomate e pepino às tiras.',
+       'Acrescenta o frango, enrola bem e corta ao meio.']),
+
+    r('salada-de-grao-com-atum', 'Salada de grão com atum', 15, 'Fácil', ['peixe'], '🥗', 'chickpea,salad,tuna',
+      'Fresca, saborosa e sem necessidade de ligar o fogão.',
+      [['grao', 270], ['atum_lata', 1], ['tomate', 150], ['pepino', 0.5], ['cebola', 0.5], ['salsa', 0.5], ['limao', 0.5], ['azeite'], ['vinagre'], ['sal']],
+      ['Escorre e enxagua o grão. Coloca numa taça.',
+       'Corta o tomate, o pepino e a cebola em cubos pequenos e junta ao grão.',
+       'Adiciona o atum escorrido e a salsa picada.',
+       'Tempera com sal, azeite, vinagre e sumo de limão. Mistura e deixa repousar 5 minutos.']),
+
+    r('feijoada-simples', 'Feijoada à portuguesa simplificada', 50, 'Média', ['carne'], '🍲', 'feijoada,stew',
+      'Feijão com chouriço e bacon, ao jeito de casa.',
+      [['feijao', 410], ['chourico', 100], ['bacon', 60], ['cenoura', 100], ['cebola', 1], ['alho', 2], ['polpa_tomate', 100], ['azeite'], ['louro'], ['colorau'], ['sal']],
+      ['Corta o chouriço em rodelas e o bacon em tiras. Frita-os num tacho, sem gordura, até largarem a gordura.',
+       'Junta a cebola, o alho e a cenoura aos cubos e refoga 5 minutos.',
+       'Adiciona a polpa de tomate, o louro, o colorau e [[300|ml]] de água. Deixa cozinhar 15 minutos.',
+       'Junta o feijão escorrido e cozinha mais 15 minutos em lume brando. Acerta o sal.']),
+
+    r('carbonara', 'Carbonara à portuguesa', 25, 'Média', ['massa', 'carne'], '🍝', 'carbonara,pasta',
+      'Cremosa sem natas, só com ovo e queijo.',
+      [['esparguete', 180], ['bacon', 100], ['ovos', 2], ['queijo_ralado', 40], ['alho', 1], ['azeite'], ['sal'], ['pimenta']],
+      ['Coze o esparguete em água com sal e guarda um copo da água da cozedura.',
+       'Corta o bacon em tiras e frita-o sem gordura com o alho até ficar estaladiço.',
+       'Bate os ovos com o queijo ralado e muita pimenta.',
+       'Fora do lume, mistura a massa com o bacon e depois com a mistura de ovos, juntando um pouco da água guardada até ficar cremoso.',
+       'Serve de imediato.']),
+
+    r('penne-com-courgette-e-natas', 'Penne com courgette e natas', 25, 'Fácil', ['massa'], '🍝', 'penne,zucchini,cream',
+      'Cremoso e leve, pronto em 25 minutos.',
+      [['penne', 180], ['courgette', 300], ['natas', 200], ['cebola', 1], ['alho', 1], ['queijo_ralado', 30], ['azeite'], ['sal'], ['pimenta']],
+      ['Coze o penne em água com sal.',
+       'Refoga a cebola e o alho em azeite durante 4 minutos. Junta a courgette em meias-luas e salteia 6 minutos.',
+       'Adiciona as natas, tempera com sal e pimenta e deixa 3 minutos.',
+       'Mistura a massa escorrida com o molho e serve com queijo ralado.']),
+
+    r('tofu-salteado-com-legumes', 'Tofu salteado com legumes e arroz', 30, 'Fácil', ['arroz'], '🥢', 'tofu,stir,fry',
+      'Vegan, colorido e com muita textura.',
+      [['tofu', 250], ['arroz', 160], ['pimento', 1], ['cenoura', 100], ['brocolos', 100], ['molho_soja', 30], ['alho', 2], ['azeite'], ['pimenta']],
+      ['Coze o arroz em água com sal durante 12 a 15 minutos e escorre.',
+       'Corta o tofu em cubos e dora-o numa frigideira com azeite durante 6 minutos. Reserva.',
+       'Na mesma frigideira, salteia o alho, o pimento e a cenoura em tiras e os brócolos em raminhos durante 6 minutos.',
+       'Junta o tofu e o molho de soja, mexe 2 minutos e tempera com pimenta.',
+       'Serve com o arroz.']),
+
+    r('lasanha-de-legumes', 'Lasanha de legumes', 60, 'Média', ['massa'], '🍽️', 'vegetable,lasagna',
+      'Camadas de legumes, molho de tomate e bechamel.',
+      [['massa_lasanha', 150], ['courgette', 250], ['cenoura', 100], ['cogumelos', 150], ['polpa_tomate', 250], ['leite', 300], ['manteiga', 30], ['farinha', 30], ['queijo_ralado', 50], ['cebola', 1], ['azeite'], ['oregaos'], ['sal'], ['pimenta']],
+      ['Liga o forno a 200 °C. Refoga a cebola em azeite e junta a courgette, a cenoura ralada e os cogumelos laminados. Salteia 8 minutos.',
+       'Adiciona a polpa de tomate e os orégãos e cozinha 10 minutos. Tempera.',
+       'Bechamel: derrete a manteiga, junta a farinha e mexe 1 minuto. Adiciona o leite aos poucos, a mexer, até engrossar.',
+       'Num pirex, alterna camadas de molho, folhas de lasanha e bechamel. Termina com bechamel e queijo ralado.',
+       'Leva ao forno 30 minutos, até dourar. Deixa repousar 10 minutos antes de cortar.']),
+
+    r('frango-no-forno-com-batatas', 'Frango no forno com batatas', 70, 'Fácil', ['carne'], '🍗', 'roast,chicken,potatoes',
+      'O assado de domingo, sem complicações.',
+      [['frango_coxas', 700], ['batata', 500], ['cebola', 1], ['alho', 3], ['limao', 0.5], ['azeite'], ['colorau'], ['louro'], ['sal'], ['pimenta']],
+      ['Liga o forno a 200 °C. Tempera o frango com alho esmagado, colorau, sal, pimenta e sumo de limão. Deixa 15 minutos.',
+       'Num tabuleiro, coloca as batatas aos gomos e a cebola às rodelas com azeite, sal e louro.',
+       'Põe o frango por cima e leva ao forno 50 a 55 minutos, virando a meio.',
+       'Serve com as batatas e os sucos do tabuleiro.']),
+
+    r('cachorro-quente-caseiro', 'Cachorro-quente caseiro', 15, 'Fácil', ['fastfood', 'carne'], '🌭', 'hot,dog',
+      'Rápido e a gosto de todos.',
+      [['salsicha', 4], ['pao_cachorro', 2], ['ketchup', 30], ['mostarda', 15], ['cebola', 0.5], ['azeite']],
+      ['Corta a cebola em tiras finas e salteia em azeite durante 5 minutos, até ficar macia.',
+       'Cozinha as salsichas numa frigideira com um pouco de água, 5 minutos, até alourarem.',
+       'Aquece ligeiramente os pães.',
+       'Monta com a salsicha, a cebola, ketchup e mostarda.']),
+
+    r('dourada-no-forno', 'Dourada no forno com batata e tomate', 50, 'Média', ['peixe'], '🐠', 'baked,fish,potatoes',
+      'Peixe inteiro no forno, tenro e aromático.',
+      [['dourada', 2], ['batata', 400], ['tomate', 150], ['cebola', 1], ['alho', 2], ['limao', 0.5], ['salsa', 0.5], ['azeite'], ['louro'], ['sal'], ['pimenta']],
+      ['Liga o forno a 200 °C. Corta as batatas, a cebola e o tomate às rodelas e dispõe num tabuleiro com azeite, sal e louro.',
+       'Leva 15 minutos ao forno para as batatas começarem a cozer.',
+       'Tempera as douradas (limpas) com sal, pimenta, alho laminado e sumo de limão.',
+       'Coloca o peixe sobre os legumes e leva ao forno 20 a 25 minutos.',
+       'Serve com salsa picada.']),
+
+    r('lentilhas-estufadas', 'Lentilhas estufadas com legumes', 40, 'Fácil', [], '🫘', 'lentils,stew',
+      'Um prato vegan, barato e muito nutritivo.',
+      [['lentilhas', 150], ['cenoura', 120], ['batata', 200], ['cebola', 1], ['alho', 2], ['polpa_tomate', 100], ['azeite'], ['louro'], ['colorau'], ['sal']],
+      ['Refoga a cebola e o alho em azeite com o louro e o colorau, durante 5 minutos.',
+       'Junta a polpa de tomate, a cenoura e a batata aos cubos e as lentilhas bem lavadas.',
+       'Cobre com [[500|ml]] de água, tempera com sal e cozinha 30 minutos em lume brando, até as lentilhas ficarem macias.',
+       'Serve quente, com um fio de azeite.']),
+
+    r('bolonhesa-de-lentilhas', 'Bolonhesa de lentilhas', 40, 'Fácil', ['massa'], '🍝', 'lentil,bolognese',
+      'A versão vegan da bolonhesa, igualmente saborosa.',
+      [['esparguete', 180], ['lentilhas', 100], ['cebola', 1], ['cenoura', 100], ['alho', 2], ['polpa_tomate', 250], ['azeite'], ['oregaos'], ['sal'], ['pimenta']],
+      ['Coze as lentilhas em [[300|ml]] de água durante 20 minutos, até ficarem macias.',
+       'Refoga a cebola, o alho e a cenoura ralada em azeite durante 5 minutos.',
+       'Junta a polpa de tomate, as lentilhas com a água que sobrar, os orégãos, sal e pimenta. Deixa 10 minutos.',
+       'Coze o esparguete em água com sal, escorre e serve com o molho.']),
+
+    r('ovos-mexidos-com-espinafres', 'Ovos mexidos com espinafres e torradas', 15, 'Fácil', [], '🍳', 'scrambled,eggs,spinach',
+      'Um jantar leve e rápido.',
+      [['ovos', 4], ['espinafres', 100], ['pao_carcaca', 2], ['manteiga', 15], ['azeite'], ['sal'], ['pimenta']],
+      ['Salteia os espinafres em azeite durante 2 minutos e reserva.',
+       'Derrete a manteiga em lume brando e junta os ovos batidos com sal e pimenta.',
+       'Mexe devagar até ficarem cremosos e junta os espinafres.',
+       'Torra o pão e serve com os ovos.']),
+
+    r('bitoque', 'Bitoque à portuguesa', 30, 'Fácil', ['carne', 'arroz'], '🍳', 'steak,egg,fries',
+      'Bife com ovo estrelado, batata frita e arroz.',
+      [['bife_vaca', 250], ['batata', 400], ['arroz', 120], ['ovos', 2], ['alho', 2], ['manteiga', 20], ['oleo'], ['azeite'], ['louro'], ['sal'], ['pimenta']],
+      ['Coze o arroz em água com sal e louro durante 12 a 15 minutos e escorre.',
+       'Corta as batatas em palitos e frita-as em óleo quente até ficarem douradas. Escorre e tempera com sal.',
+       'Tempera o bife com sal, pimenta e alho. Grelha 2 a 3 minutos de cada lado e reserva.',
+       'Na mesma frigideira, junta a manteiga e [[50|ml]] de água para fazer o molho.',
+       'Estrela os ovos e serve tudo num prato, com o molho por cima do bife.']),
+
+    r('pescada-cozida', 'Pescada cozida com legumes', 35, 'Fácil', ['peixe'], '🐟', 'boiled,fish,vegetables',
+      'Leve e tradicional, com um fio de azeite e vinagre.',
+      [['pescada', 300], ['batata', 400], ['cenoura', 150], ['couve', 150], ['alho', 2], ['azeite'], ['vinagre'], ['louro'], ['sal']],
+      ['Coze a batata e a cenoura em água com sal e louro durante 15 minutos.',
+       'Junta a couve e cozinha mais 5 minutos.',
+       'Adiciona a pescada e deixa 6 a 8 minutos, até ficar opaca.',
+       'Prepara um molho com azeite, alho laminado e um fio de vinagre.',
+       'Serve o peixe e os legumes escorridos com o molho.']),
+
+    r('hamburguer-de-grao', 'Hambúrguer de grão-de-bico', 30, 'Média', ['fastfood'], '🍔', 'veggie,burger',
+      'Hambúrguer vegan, estaladiço por fora e macio por dentro.',
+      [['grao', 270], ['cebola', 1], ['alho', 1], ['farinha', 40], ['colorau'], ['pao_hamburguer', 2], ['alface', 0.5], ['tomate', 100], ['ketchup', 20], ['azeite'], ['sal'], ['pimenta']],
+      ['Escorre bem o grão e esmaga-o com um garfo, deixando alguma textura.',
+       'Junta a cebola e o alho muito picados, a farinha, o colorau, sal e pimenta. Mistura até ficar moldável.',
+       'Forma 2 hambúrgueres e grelha numa frigideira com azeite, 4 minutos de cada lado.',
+       'Torra os pães e monta com ketchup, alface, tomate e o hambúrguer.']),
+
+    r('wrap-vegan-de-legumes', 'Wrap vegan de legumes e grão', 20, 'Fácil', ['fastfood'], '🌯', 'vegan,wrap',
+      'Cheio de cor e de sabor, sem produtos animais.',
+      [['wraps', 2], ['grao', 200], ['pimento', 1], ['courgette', 150], ['cebola', 1], ['alface', 0.5], ['tomate', 100], ['limao', 0.5], ['colorau'], ['azeite'], ['sal']],
+      ['Corta o pimento, a courgette e a cebola em tiras e salteia em azeite durante 8 minutos. Tempera com sal e colorau.',
+       'Junta o grão escorrido e aquece 3 minutos.',
+       'Aquece as tortilhas e recheia com os legumes, alface e tomate às fatias.',
+       'Rega com sumo de limão, enrola e serve.']),
+
+    r('caldo-verde', 'Caldo verde', 40, 'Fácil', ['carne'], '🥣', 'green,soup,portuguese',
+      'A sopa mais portuguesa, com rodelas de chouriço.',
+      [['batata', 400], ['couve', 150], ['cebola', 1], ['alho', 1], ['chourico', 60], ['azeite'], ['sal']],
+      ['Coze a batata, a cebola e o alho em [[800|ml]] de água com sal durante 20 minutos.',
+       'Tritura tudo até ficar cremoso e volta ao lume.',
+       'Corta a couve em tiras muito finas e junta ao caldo. Deixa ferver 5 minutos.',
+       'Serve com rodelas de chouriço e um fio de azeite.']),
+
+    r('salada-morna-de-grao', 'Salada morna de grão e legumes assados', 35, 'Fácil', [], '🥗', 'roasted,vegetable,salad',
+      'Legumes assados e grão, com um toque de limão.',
+      [['grao', 270], ['pimento', 1], ['courgette', 150], ['cebola', 1], ['tomate', 100], ['espinafres', 60], ['limao', 0.5], ['azeite'], ['oregaos'], ['sal'], ['pimenta']],
+      ['Liga o forno a 220 °C. Corta o pimento, a courgette, a cebola e o tomate em pedaços.',
+       'Tempera com azeite, orégãos, sal e pimenta e assa 25 minutos.',
+       'Aquece o grão escorrido numa frigideira durante 3 minutos.',
+       'Mistura os legumes, o grão e os espinafres e rega com sumo de limão.']),
+
+    r('penne-com-courgette-e-tomate', 'Penne com courgette e tomate', 25, 'Fácil', ['massa'], '🍝', 'penne,tomato,zucchini',
+      'Vegan, leve e pronto em meia hora.',
+      [['penne', 180], ['courgette', 300], ['polpa_tomate', 200], ['alho', 2], ['cebola', 1], ['azeite'], ['oregaos'], ['sal'], ['pimenta']],
+      ['Coze o penne em água com sal.',
+       'Refoga a cebola e o alho em azeite durante 4 minutos. Junta a courgette em cubos e salteia 6 minutos.',
+       'Adiciona a polpa de tomate e os orégãos e cozinha 8 minutos. Tempera.',
+       'Mistura com a massa escorrida e serve.'])
+  ];
+
+  const dados = {
+    supermercados,
+    categorias,
+    ordemCategorias,
+    ingredientes,
+    receitas
+  };
+
+  if (typeof module === 'object' && module.exports) module.exports = dados;
+  else raiz.OQHPJ_DADOS = dados;
+})(typeof self !== 'undefined' ? self : this);
+
+</script>
+  <script>
+/* O Que Há Para Jantar? — lógica (sem interface)
+ *
+ * Funções puras: sugestões de receitas, escalas de quantidades, custos e lista de compras.
+ * Funciona no navegador (window.OQHPJ_LOGICA) e em Node (require), para poder ser testada.
+ */
+(function (raiz, fabrica) {
+  if (typeof module === 'object' && module.exports) module.exports = fabrica(require('./dados.js'));
+  else raiz.OQHPJ_LOGICA = fabrica(raiz.OQHPJ_DADOS);
+})(typeof self !== 'undefined' ? self : this, function (D) {
+  'use strict';
+
+  const ING = D.ingredientes;
+  const INTEIRAS = ['un', 'dentes', 'molho', 'fatias'];
+  const CATEGORIAS_PREF = ['arroz', 'massa', 'carne', 'peixe', 'fastfood'];
+
+  /* ---------- Utilitários ---------- */
+  function norm(s) {
+    return String(s == null ? '' : s).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim();
+  }
+
+  function hashTexto(s) {
+    let h = 2166136261;
+    for (let i = 0; i < s.length; i++) {
+      h ^= s.charCodeAt(i);
+      h = Math.imul(h, 16777619);
+    }
+    return h >>> 0;
+  }
+
+  // Número "aleatório" estável (0 a 1) para uma chave e uma semente.
+  function aleatorio(chave, semente) {
+    return (hashTexto(chave + '|' + (semente || 0)) % 10000) / 10000;
+  }
+
+  function num(n) {
+    return String(Math.round(n * 10) / 10).replace('.', ',');
+  }
+
+  function eur(n) {
+    return (Math.round(n * 100) / 100).toFixed(2).replace('.', ',') + ' €';
+  }
+
+  function receitaPorId(id) {
+    return D.receitas.find(function (r) { return r.id === id; }) || null;
+  }
+
+  /* ---------- Etiquetas derivadas dos ingredientes ---------- */
+  const cacheEtiquetas = new Map();
+
+  function etiquetas(r) {
+    if (cacheEtiquetas.has(r.id)) return cacheEtiquetas.get(r.id);
+    const t = { vegan: true, vegetariano: true, gluten: false, lactose: false, ovos: false, peixe: false, porco: false };
+    r.ing.forEach(function (par) {
+      const g = ING[par[0]];
+      if (!g) return;
+      if (g.o === 'carne' || g.o === 'peixe') { t.vegetariano = false; t.vegan = false; }
+      if (g.o === 'animal') t.vegan = false;
+      if (g.o === 'peixe') t.peixe = true;
+      if (g.porco) t.porco = true;
+      (g.a || []).forEach(function (a) { t[a] = true; });
+    });
+    cacheEtiquetas.set(r.id, t);
+    return t;
+  }
+
+  /* ---------- Quantidades ---------- */
+  function fator(pessoas, base) {
+    return (pessoas || 2) / (base || 2);
+  }
+
+  function escalar(qtd, un, f) {
+    const x = qtd * f;
+    if (un === 'lata') return Math.max(1, Math.ceil(x - 1e-9));
+    if (INTEIRAS.indexOf(un) >= 0) return Math.max(0.5, Math.round(x * 2) / 2);
+    const passo = x < 20 ? 1 : x < 100 ? 5 : 10;
+    return Math.max(passo, Math.round(x / passo) * passo);
+  }
+
+  function fracao(q) {
+    const inteiro = Math.floor(q);
+    const meio = q - inteiro >= 0.5 ? '½' : '';
+    if (!inteiro) return meio || '0';
+    return inteiro + meio;
+  }
+
+  function formatarQtd(q, un) {
+    switch (un) {
+      case 'g': return q >= 1000 ? num(q / 1000) + ' kg' : num(q) + ' g';
+      case 'ml': return q >= 1000 ? num(q / 1000) + ' l' : num(q) + ' ml';
+      case 'un': return fracao(q) + ' un.';
+      case 'dentes': return fracao(q) + (q > 1 ? ' dentes' : ' dente');
+      case 'lata': return fracao(q) + (q > 1 ? ' latas' : ' lata');
+      case 'molho': return fracao(q) + (q > 1 ? ' molhos' : ' molho');
+      case 'fatias': return fracao(q) + (q > 1 ? ' fatias' : ' fatia');
+      default: return num(q) + ' ' + un;
+    }
+  }
+
+  // Substitui [[450|ml]] pela quantidade ajustada ao número de pessoas.
+  function escalarPasso(texto, f) {
+    return texto.replace(/\[\[(\d+(?:\.\d+)?)\|([a-z]+)\]\]/g, function (_, n, u) {
+      return formatarQtd(escalar(Number(n), u, f), u);
+    });
+  }
+
+  function linhasIngredientes(r, pessoas) {
+    const f = fator(pessoas, r.porcoes);
+    return r.ing.map(function (par) {
+      const id = par[0];
+      const g = ING[id];
+      const basico = !!g.b;
+      return {
+        id: id,
+        nome: g.n,
+        emoji: g.e,
+        basico: basico,
+        qtd: basico ? 'q.b.' : formatarQtd(escalar(par[1], g.u, f), g.u)
+      };
+    });
+  }
+
+  /* ---------- Custos ---------- */
+  // Custo proporcional das quantidades usadas (não o da embalagem inteira).
+  function custo(r, pessoas, indice, excluir) {
+    const f = fator(pessoas, r.porcoes);
+    let total = 0;
+    r.ing.forEach(function (par) {
+      const g = ING[par[0]];
+      if (!g || g.b) return;
+      if (excluir && excluir.indexOf(par[0]) >= 0) return;
+      total += (par[1] * f / g.emb) * g.p;
+    });
+    return total * (indice || 1);
+  }
+
+  /* ---------- Sugestões: "Cozinha em Casa" ---------- */
+  function sugerirPorIngredientes(tenho, opc) {
+    opc = opc || {};
+    const semente = opc.semente || 0;
+    const conjunto = tenho instanceof Set ? tenho : new Set(tenho);
+    const itens = D.receitas.map(function (r) {
+      const essenciais = r.ing.map(function (p) { return p[0]; }).filter(function (id) { return !ING[id].b; });
+      const tem = essenciais.filter(function (id) { return conjunto.has(id); });
+      const faltam = essenciais.filter(function (id) { return !conjunto.has(id); });
+      const razao = essenciais.length ? tem.length / essenciais.length : 0;
+      const pontos = razao * 10 + tem.length * 0.3 + aleatorio(r.id, semente) * 1.2 - (r.tempo > 60 ? 0.2 : 0);
+      return { receita: r, tem: tem, faltam: faltam, total: essenciais.length, razao: razao, pontos: pontos };
+    });
+    itens.sort(function (a, b) { return b.pontos - a.pontos; });
+    return itens.slice(0, opc.limite || 10);
+  }
+
+  /* ---------- Sugestões: "Vou às Compras" ---------- */
+  // resp: { prefs:[], restricoes:[], pessoas, orcamento (€/pessoa ou null), tempo (min ou null) }
+  function sugerirPorPreferencias(resp, opc) {
+    opc = opc || {};
+    const semente = opc.semente || 0;
+    const indice = opc.indice || 1;
+    const pessoas = resp.pessoas || 2;
+    const prefs = resp.prefs || [];
+    const restricoes = resp.restricoes || [];
+    const avisos = [];
+
+    const dieta = prefs.indexOf('vegan') >= 0 ? 'vegan' : prefs.indexOf('vegetariano') >= 0 ? 'vegetariano' : null;
+    let cats = prefs.filter(function (p) { return CATEGORIAS_PREF.indexOf(p) >= 0; });
+
+    if (dieta) {
+      const antes = cats.length;
+      cats = cats.filter(function (c) { return c !== 'carne' && c !== 'peixe'; });
+      if (antes !== cats.length) {
+        avisos.push('Como escolheste ' + (dieta === 'vegan' ? 'Vegan' : 'Vegetariano') + ', ignorámos Carne e Peixe.');
+      }
+    }
+    if (restricoes.indexOf('peixe') >= 0 && cats.indexOf('peixe') >= 0) {
+      cats = cats.filter(function (c) { return c !== 'peixe'; });
+      avisos.push('Escolheste Peixe mas também «sem peixe», por isso ignorámos Peixe.');
+    }
+
+    const elegiveis = D.receitas.filter(function (r) {
+      const t = etiquetas(r);
+      if (dieta && !t[dieta]) return false;
+      return !restricoes.some(function (k) { return t[k]; });
+    });
+
+    const itens = elegiveis.map(function (r) {
+      const custoPP = custo(r, pessoas, indice) / pessoas;
+      const casam = cats.filter(function (c) { return r.cat.indexOf(c) >= 0; }).length;
+      const dentroTempo = resp.tempo == null || r.tempo <= resp.tempo;
+      const dentroOrc = resp.orcamento == null || custoPP <= resp.orcamento;
+      const pontos = casam * 3 + (dentroTempo ? 2 : 0) + (dentroOrc ? 2 : 0) +
+        aleatorio(r.id, semente) * 1.5 - (cats.length && !casam ? 1 : 0);
+      return { receita: r, custoPP: custoPP, casam: casam, dentroTempo: dentroTempo, dentroOrc: dentroOrc, pontos: pontos };
+    });
+    itens.sort(function (a, b) { return b.pontos - a.pontos; });
+    const topo = itens.slice(0, 10);
+
+    if (elegiveis.length < 10) {
+      avisos.push('Só encontrámos ' + elegiveis.length + ' receita' + (elegiveis.length === 1 ? '' : 's') + ' compatível' + (elegiveis.length === 1 ? '' : 'is') + ' com as tuas escolhas.');
+    }
+    if (topo.some(function (i) { return !i.dentroOrc; })) avisos.push('Algumas receitas ficam acima do orçamento escolhido.');
+    if (topo.some(function (i) { return !i.dentroTempo; })) avisos.push('Algumas receitas demoram mais do que o tempo escolhido.');
+
+    return { itens: topo, avisos: avisos, dieta: dieta, elegiveis: elegiveis.length };
+  }
+
+  /* ---------- Lista de compras ---------- */
+  // lista: [{ id, pessoas, excluir: [idsDeIngredientes] }]
+  function consolidarLista(lista, indice) {
+    indice = indice || 1;
+    const precisa = {};
+    const basicos = [];
+    lista.forEach(function (item) {
+      const r = receitaPorId(item.id);
+      if (!r) return;
+      const f = fator(item.pessoas || 2, r.porcoes);
+      r.ing.forEach(function (par) {
+        const id = par[0];
+        const g = ING[id];
+        if (!g) return;
+        if (item.excluir && item.excluir.indexOf(id) >= 0) return;
+        if (g.b) {
+          if (basicos.indexOf(id) < 0) basicos.push(id);
+          return;
+        }
+        precisa[id] = (precisa[id] || 0) + par[1] * f;
+      });
+    });
+
+    const porCategoria = {};
+    let total = 0;
+    Object.keys(precisa).forEach(function (id) {
+      const g = ING[id];
+      const embalagens = Math.max(1, Math.ceil(precisa[id] / g.emb - 1e-9));
+      const preco = Math.round(embalagens * g.p * indice * 100) / 100;
+      total += preco;
+      if (!porCategoria[g.c]) porCategoria[g.c] = [];
+      porCategoria[g.c].push({
+        id: id, nome: g.n, emoji: g.e, unidade: g.u,
+        necessario: precisa[id], embalagens: embalagens, tamanhoEmbalagem: g.emb, preco: preco
+      });
+    });
+
+    const grupos = D.ordemCategorias
+      .filter(function (c) { return porCategoria[c]; })
+      .map(function (c) {
+        return {
+          categoria: c,
+          titulo: D.categorias[c],
+          itens: porCategoria[c].sort(function (a, b) { return a.nome.localeCompare(b.nome, 'pt'); })
+        };
+      });
+
+    return {
+      grupos: grupos,
+      basicos: basicos.map(function (id) { return { id: id, nome: ING[id].n, emoji: ING[id].e }; }),
+      total: Math.round(total * 100) / 100,
+      itens: Object.keys(precisa).length
+    };
+  }
+
+  // Compara o total da mesma lista em vários supermercados (do mais barato ao mais caro).
+  function totalPorLoja(lista, idsLojas) {
+    return idsLojas
+      .map(function (id) {
+        const s = D.supermercados.find(function (x) { return x.id === id; });
+        return s ? { id: id, nome: s.nome, total: consolidarLista(lista, s.indice).total } : null;
+      })
+      .filter(Boolean)
+      .sort(function (a, b) { return a.total - b.total; });
+  }
+
+  function listaComoTexto(lista, indice, nomeLoja) {
+    const c = consolidarLista(lista, indice);
+    const linhas = ['Lista de compras — O Que Há Para Jantar?'];
+    if (nomeLoja) linhas.push('Loja: ' + nomeLoja + ' (preços estimados)');
+    linhas.push('');
+    lista.forEach(function (item) {
+      const r = receitaPorId(item.id);
+      if (r) linhas.push('• ' + r.nome + ' (' + item.pessoas + ' ' + (item.pessoas === 1 ? 'pessoa' : 'pessoas') + ')');
+    });
+    c.grupos.forEach(function (g) {
+      linhas.push('');
+      linhas.push(g.titulo.toUpperCase());
+      g.itens.forEach(function (i) {
+        linhas.push('[ ] ' + i.embalagens + ' × ' + i.nome + ' (' + formatarQtd(i.tamanhoEmbalagem, i.unidade) + ') — ' + eur(i.preco));
+      });
+    });
+    if (c.basicos.length) {
+      linhas.push('');
+      linhas.push('BÁSICOS (confirma se tens): ' + c.basicos.map(function (b) { return b.nome; }).join(', '));
+    }
+    linhas.push('');
+    linhas.push('Total estimado: ' + eur(c.total));
+    return linhas.join('\n');
+  }
+
+  return {
+    norm: norm, num: num, eur: eur, aleatorio: aleatorio,
+    receitaPorId: receitaPorId, etiquetas: etiquetas,
+    fator: fator, escalar: escalar, formatarQtd: formatarQtd, escalarPasso: escalarPasso,
+    linhasIngredientes: linhasIngredientes, custo: custo,
+    sugerirPorIngredientes: sugerirPorIngredientes,
+    sugerirPorPreferencias: sugerirPorPreferencias,
+    consolidarLista: consolidarLista, totalPorLoja: totalPorLoja, listaComoTexto: listaComoTexto
+  };
+});
+
+</script>
+  <script>
+/* O Que Há Para Jantar? — interface e navegação
+ *
+ * Aplicação de uma só página, sem dependências. Rotas por hash (#...), estado em
+ * localStorage (contas de demonstração, supermercados, favoritos e lista de compras).
+ * As vistas são funções que devolvem HTML; os eventos são tratados por delegação (data-act).
+ */
+(function () {
+  'use strict';
+
+  const D = window.OQHPJ_DADOS;
+  const L = window.OQHPJ_LOGICA;
+  const CHAVE = 'oqhpj:v1';
+  const $app = document.getElementById('app');
+  const $toast = document.getElementById('toast');
+
+  /* =========================================================
+   * Utilitários
+   * ======================================================= */
+  const MAPA_ESC = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return MAPA_ESC[c]; });
+  }
+
+  function lojaPorId(id) {
+    return D.supermercados.find(function (s) { return s.id === id; });
+  }
+
+  function plural(n, um, varios) {
+    return n === 1 ? um : varios;
+  }
+
+  function saudacao() {
+    const h = new Date().getHours();
+    return h < 12 ? 'Bom dia' : h < 20 ? 'Boa tarde' : 'Boa noite';
+  }
+
+  function fotoSrc(r) {
+    if (r.foto) return r.foto;
+    const idx = D.receitas.indexOf(r) + 1;
+    return 'https://loremflickr.com/640/480/' + encodeURIComponent(r.fotoTags) + '?lock=' + idx;
+  }
+
+  function mostrarToast(texto) {
+    if (!$toast) return;
+    $toast.textContent = texto;
+    $toast.classList.add('visivel');
+    clearTimeout(mostrarToast.t);
+    mostrarToast.t = setTimeout(function () { $toast.classList.remove('visivel'); }, 2600);
+  }
+
+  /* =========================================================
+   * Estado (persistente) e estado transitório
+   * ======================================================= */
+  function lerArmazem() {
+    try {
+      const bruto = localStorage.getItem(CHAVE);
+      if (bruto) {
+        const o = JSON.parse(bruto);
+        if (o && typeof o === 'object') return { users: o.users || {}, sessao: o.sessao || null };
+      }
+    } catch (e) { /* armazenamento indisponível */ }
+    return { users: {}, sessao: null };
+  }
+
+  let S = lerArmazem();
+
+  function guardar() {
+    try { localStorage.setItem(CHAVE, JSON.stringify(S)); } catch (e) { /* ignorar */ }
+  }
+
+  function utilizador() {
+    return S.sessao ? S.users[S.sessao] || null : null;
+  }
+
+  function dadosVazios() {
+    return { lojas: [], principal: null, favoritos: [], lista: [], marcados: {} };
+  }
+
+  function dados() {
+    const u = utilizador();
+    if (!u) return null;
+    const base = dadosVazios();
+    if (!u.dados) u.dados = base;
+    Object.keys(base).forEach(function (k) { if (u.dados[k] === undefined) u.dados[k] = base[k]; });
+    return u.dados;
+  }
+
+  function lojaPrincipal() {
+    const d = dados();
+    const id = d && (d.principal && d.lojas.indexOf(d.principal) >= 0 ? d.principal : d.lojas[0]);
+    return lojaPorId(id) || D.supermercados[0];
+  }
+
+  const indicePreco = function () { return lojaPrincipal().indice; };
+
+  const T = {
+    auth: { modo: 'entrar', erro: '' },
+    casa: { sel: new Set(), busca: '', pessoas: 2, semente: 0, resultados: null },
+    compras: {
+      passo: 0, semente: 0, resultados: null,
+      resp: { prefs: [], restricoes: [], pessoas: 2, orcamento: null, tempo: null }
+    },
+    receita: { id: null, pessoas: 2, feitos: new Set() },
+    lojaAberta: null,
+    rotaAnterior: 'inicio'
+  };
+
+  /* =========================================================
+   * Passos do questionário "Vou às Compras"
+   * ======================================================= */
+  const ORCAMENTOS = [
+    { v: 2, e: '🪙', l: 'Até 2 €', s: 'por pessoa' },
+    { v: 3.5, e: '💶', l: 'Até 3,50 €', s: 'por pessoa' },
+    { v: 5, e: '💳', l: 'Até 5 €', s: 'por pessoa' },
+    { v: null, e: '✨', l: 'Sem limite', s: 'o que apetecer' }
+  ];
+  const TEMPOS = [
+    { v: 20, e: '⚡', l: 'Até 20 minutos', s: 'rapidinho' },
+    { v: 40, e: '⏱️', l: 'Até 40 minutos', s: 'com calma' },
+    { v: null, e: '🍲', l: 'Sem pressa', s: 'quero cozinhar' }
+  ];
+  const PASSOS = [
+    {
+      id: 'prefs', titulo: 'O que te apetece comer?', sub: 'Escolhe uma ou mais opções. Vegan e Vegetariano filtram as receitas.', multi: true,
+      op: [
+        { v: 'arroz', e: '🍚', l: 'Arroz' }, { v: 'massa', e: '🍝', l: 'Massa' },
+        { v: 'carne', e: '🥩', l: 'Carne' }, { v: 'peixe', e: '🐟', l: 'Peixe' },
+        { v: 'vegetariano', e: '🥗', l: 'Vegetariano' }, { v: 'vegan', e: '🌱', l: 'Vegan' },
+        { v: 'fastfood', e: '🍔', l: 'Fast food' }
+      ]
+    },
+    {
+      id: 'restricoes', titulo: 'Tens restrições alimentares?', sub: 'Podes saltar este passo se não tiveres nenhuma.', multi: true,
+      op: [
+        { v: 'gluten', e: '🌾', l: 'Sem glúten' }, { v: 'lactose', e: '🥛', l: 'Sem lactose' },
+        { v: 'ovos', e: '🥚', l: 'Sem ovos' }, { v: 'peixe', e: '🐟', l: 'Sem peixe' },
+        { v: 'porco', e: '🐖', l: 'Sem porco' }
+      ]
+    },
+    {
+      id: 'pessoas', titulo: 'Para quantas pessoas?', sub: 'Ajustamos as quantidades e a lista de compras.', multi: false,
+      op: [1, 2, 3, 4, 5, 6].map(function (n) {
+        return { v: n, e: ['🙂', '👫', '👨‍👩‍👦', '👨‍👩‍👧‍👦', '🧑‍🤝‍🧑', '🎉'][n - 1], l: n + ' ' + plural(n, 'pessoa', 'pessoas') };
+      })
+    },
+    { id: 'orcamento', titulo: 'Qual é o orçamento?', sub: 'Valor aproximado por pessoa, por refeição.', multi: false, op: ORCAMENTOS },
+    { id: 'tempo', titulo: 'Quanto tempo tens para cozinhar?', sub: 'Dá-nos uma ideia e damos prioridade ao que cabe nesse tempo.', multi: false, op: TEMPOS }
+  ];
+
+  /* =========================================================
+   * Peças de interface reutilizáveis
+   * ======================================================= */
+  function seloLoja(s, tamanho) {
+    return '<span class="loja-selo ' + (tamanho || '') + '" style="background:' + s.cor + ';color:' + s.texto + '" aria-hidden="true">' +
+      esc(s.nome.charAt(0)) + '</span>';
+  }
+
+  function foto(r, classe) {
+    const h = Math.round(L.aleatorio(r.id, 7) * 40) + 5;
+    return '<div class="foto ' + (classe || '') + '" data-emoji="' + esc(r.emoji) + '" style="background:linear-gradient(135deg,hsl(' + h + ',90%,90%),hsl(' + (h + 22) + ',85%,82%))">' +
+      '<img src="' + esc(fotoSrc(r)) + '" alt="' + esc(r.nome) + '" loading="lazy" referrerpolicy="no-referrer"></div>';
+  }
+
+  function cartaoReceita(r, selo, extra) {
+    return '<a class="cartao-receita" href="#receita-' + esc(r.id) + '">' +
+      foto(r) +
+      '<div class="cartao-corpo">' +
+      (selo ? '<span class="selo-info ' + (selo.classe || '') + '">' + esc(selo.texto) + '</span>' : '') +
+      '<h3>' + esc(r.nome) + '</h3>' +
+      '<div class="meta"><span>⏱ ' + r.tempo + ' min</span>' + (extra ? '<span>' + esc(extra) + '</span>' : '') + '</div>' +
+      '</div></a>';
+  }
+
+  function cabecalhoPagina(titulo, sub, voltar) {
+    return '<div class="cab-pagina">' +
+      (voltar ? '<a class="btn-voltar" href="' + voltar + '" aria-label="Voltar">←</a>' : '') +
+      '<div><h1 class="titulo-pagina">' + esc(titulo) + '</h1>' + (sub ? '<p class="sub">' + esc(sub) + '</p>' : '') + '</div></div>';
+  }
+
+  function moldura(html, ativo, opcoes) {
+    opcoes = opcoes || {};
+    const u = utilizador();
+    const d = dados();
+    const nLista = d ? d.lista.length : 0;
+    const itens = [
+      ['inicio', '#', '🏠', 'Início'],
+      ['casa', '#casa', '🍳', 'Em casa'],
+      ['compras', '#compras', '🛒', 'Compras'],
+      ['lista', '#lista', '🧾', 'Lista'],
+      ['perfil', '#perfil', '👤', 'Perfil']
+    ];
+    const links = itens.map(function (i) {
+      return '<a href="' + i[1] + '" class="' + (ativo === i[0] ? 'ativo' : '') + '"' + (ativo === i[0] ? ' aria-current="page"' : '') + '>' +
+        '<span class="ico">' + i[2] + '</span><span class="txt">' + i[3] + '</span>' +
+        (i[0] === 'lista' && nLista ? '<span class="contador">' + nLista + '</span>' : '') + '</a>';
+    }).join('');
+    const inicial = esc((u && u.nome ? u.nome : '?').charAt(0).toUpperCase());
+    return '<header class="topo"><div class="topo-int">' +
+      '<a class="marca" href="#"><span class="marca-ico" aria-hidden="true">🍽️</span><span>O Que Há Para Jantar?</span></a>' +
+      '<nav class="nav-desk" aria-label="Principal">' + links + '</nav>' +
+      '<a class="avatar" href="#perfil" aria-label="O meu perfil">' + inicial + '</a>' +
+      '</div></header>' +
+      '<main id="principal" class="conteudo ' + (opcoes.classe || '') + '" tabindex="-1">' + html + '</main>' +
+      '<nav class="nav-baixo" aria-label="Principal">' + links + '</nav>';
+  }
+
+  /* =========================================================
+   * Vistas
+   * ======================================================= */
+  const vistas = {};
+
+  /* ---------- Início de sessão / criar conta ---------- */
+  vistas.entrar = function () {
+    const criar = T.auth.modo === 'criar';
+    return {
+      sem: true,
+      html:
+        '<div class="entrar">' +
+        '<section class="entrar-hero" aria-hidden="true">' +
+        '<div class="hero-pratos"><span>🍝</span><span>🍅</span><span>🍗</span><span>🥗</span><span>🐟</span><span>🍕</span></div>' +
+        '<h2>Nunca mais fiques sem saber o que há para jantar.</h2>' +
+        '<p>Receitas à portuguesa com o que tens em casa ou com a lista certa para levar do supermercado.</p>' +
+        '</section>' +
+        '<section class="entrar-cartao">' +
+        '<div class="marca marca-grande"><span class="marca-ico" aria-hidden="true">🍽️</span><span>O Que Há Para Jantar?</span></div>' +
+        '<h1 class="entrar-titulo">' + (criar ? 'Cria a tua conta' : 'Bem-vindo de volta') + '</h1>' +
+        '<p class="sub">' + (criar ? 'Demora menos de um minuto.' : 'Inicia sessão para continuares.') + '</p>' +
+        '<div class="abas" role="tablist">' +
+        '<button type="button" role="tab" class="aba ' + (!criar ? 'ativo' : '') + '" aria-selected="' + (!criar) + '" data-act="modoAuth" data-val="entrar">Iniciar sessão</button>' +
+        '<button type="button" role="tab" class="aba ' + (criar ? 'ativo' : '') + '" aria-selected="' + criar + '" data-act="modoAuth" data-val="criar">Criar conta</button>' +
+        '</div>' +
+        '<form data-form="auth" novalidate>' +
+        (criar ? '<div class="campo"><label for="nome">Nome</label><input id="nome" name="nome" type="text" autocomplete="given-name" placeholder="Como te chamas?" required></div>' : '') +
+        '<div class="campo"><label for="email">E-mail</label><input id="email" name="email" type="email" autocomplete="email" placeholder="o.teu@email.pt" required></div>' +
+        '<div class="campo"><label for="pass">Palavra-passe</label><div class="campo-pass">' +
+        '<input id="pass" name="pass" type="password" autocomplete="' + (criar ? 'new-password' : 'current-password') + '" placeholder="Mínimo de 6 caracteres" required>' +
+        '<button type="button" class="ver-pass" data-act="verPass" aria-label="Mostrar ou esconder a palavra-passe">👁</button></div></div>' +
+        (T.auth.erro ? '<p class="erro-form" role="alert">' + esc(T.auth.erro) + '</p>' : '') +
+        '<button class="btn btn-primario btn-grande btn-bloco" type="submit">' + (criar ? 'Criar conta' : 'Iniciar sessão') + '</button>' +
+        '</form>' +
+        '<div class="separador"><span>ou</span></div>' +
+        '<button type="button" class="btn btn-sec btn-bloco" data-act="convidado">Continuar como convidado</button>' +
+        '<p class="nota">Protótipo de demonstração: as contas e os dados ficam guardados só neste dispositivo.</p>' +
+        '</section></div>'
+    };
+  };
+
+  /* ---------- Escolha de supermercados ---------- */
+  vistas.lojas = function () {
+    const d = dados();
+    const n = d.lojas.length;
+    const todas = n === D.supermercados.length;
+    const cartoes = D.supermercados.map(function (s) {
+      const sel = d.lojas.indexOf(s.id) >= 0;
+      return '<button type="button" class="loja-cartao ' + (sel ? 'sel' : '') + '" data-act="alternarLoja" data-id="' + s.id + '" aria-pressed="' + sel + '">' +
+        seloLoja(s, 'grande') +
+        '<span class="loja-nome">' + esc(s.nome) + '</span>' +
+        '<span class="tique" aria-hidden="true">' + (sel ? '✓' : '') + '</span></button>';
+    }).join('');
+    return {
+      sem: true,
+      html:
+        '<div class="pagina-estreita">' +
+        '<div class="marca marca-grande centrado"><span class="marca-ico" aria-hidden="true">🍽️</span><span>O Que Há Para Jantar?</span></div>' +
+        '<h1 class="titulo-pagina centrado">Onde costumas fazer compras?</h1>' +
+        '<p class="sub centrado">Escolhe os teus supermercados preferidos. Vamos usá-los para estimar preços e mostrar as lojas perto de ti.</p>' +
+        '<div class="grelha-lojas">' + cartoes + '</div>' +
+        '<div class="rodape-acoes">' +
+        '<button type="button" class="btn btn-fantasma" data-act="todasLojas">' + (todas ? 'Limpar seleção' : 'Selecionar todos') + '</button>' +
+        '<button type="button" class="btn btn-primario btn-grande" data-act="confirmarLojas"' + (n ? '' : ' disabled') + '>' +
+        (n ? 'Continuar com ' + n + ' ' + plural(n, 'supermercado', 'supermercados') : 'Escolhe pelo menos um') + '</button>' +
+        '</div></div>'
+    };
+  };
+
+  /* ---------- Início ---------- */
+  vistas.inicio = function () {
+    const u = utilizador();
+    const d = dados();
+    const lojas = d.lojas.map(lojaPorId).filter(Boolean).sort(function (a, b) { return a.dist - b.dist; });
+    const principal = lojaPrincipal();
+    const faixa = lojas.map(function (s) {
+      return '<button type="button" class="loja-mini" data-act="abrirLoja" data-id="' + s.id + '">' +
+        seloLoja(s, 'grande') +
+        '<span class="loja-nome">' + esc(s.nome) + '</span>' +
+        '<span class="loja-dist">📍 ' + L.num(s.dist) + ' km</span>' +
+        (s.id === principal.id ? '<span class="selo-info">Loja principal</span>' : '') + '</button>';
+    }).join('');
+    const rapidas = D.receitas.filter(function (r) { return r.tempo <= 20; }).slice(0, 4);
+    const favoritas = d.favoritos.map(L.receitaPorId).filter(Boolean).slice(0, 4);
+    return {
+      ativo: 'inicio',
+      html:
+        '<section class="boas-vindas"><p class="saudacao">' + saudacao() + ', ' + esc(u.nome) + ' 👋</p>' +
+        '<h1 class="titulo-grande">O que há para jantar?</h1></section>' +
+        '<section aria-labelledby="t-lojas">' +
+        '<div class="sec-cab"><h2 class="sec-titulo" id="t-lojas">Supermercados perto de ti</h2>' +
+        '<div class="carr-controlos"><button type="button" class="carr-btn" data-act="carrossel" data-dir="-1" aria-label="Anterior">‹</button>' +
+        '<button type="button" class="carr-btn" data-act="carrossel" data-dir="1" aria-label="Seguinte">›</button></div></div>' +
+        '<div class="carrossel"><div class="faixa">' + faixa + '</div></div>' +
+        '<p class="nota">Distâncias de demonstração. <a href="#lojas">Alterar supermercados</a></p>' +
+        '</section>' +
+        '<section class="acoes-principais" aria-label="O que queres fazer?">' +
+        '<a class="acao-cartao acao-casa" href="#casa"><span class="acao-emoji" aria-hidden="true">🍳</span>' +
+        '<span class="acao-texto"><strong>Cozinha em Casa</strong><span>Diz-nos o que tens e sugerimos 10 receitas.</span></span><span class="seta" aria-hidden="true">→</span></a>' +
+        '<a class="acao-cartao acao-compras" href="#compras"><span class="acao-emoji" aria-hidden="true">🛒</span>' +
+        '<span class="acao-texto"><strong>Vou às Compras</strong><span>Responde a 5 perguntas e recebe receitas e lista.</span></span><span class="seta" aria-hidden="true">→</span></a>' +
+        '</section>' +
+        (favoritas.length ?
+          '<section><div class="sec-cab"><h2 class="sec-titulo">As tuas favoritas</h2><a class="ligacao" href="#perfil">Ver todas</a></div>' +
+          '<div class="grelha-receitas">' + favoritas.map(function (r) { return cartaoReceita(r); }).join('') + '</div></section>' : '') +
+        '<section><div class="sec-cab"><h2 class="sec-titulo">Ideias rápidas (até 20 min)</h2></div>' +
+        '<div class="grelha-receitas">' + rapidas.map(function (r) { return cartaoReceita(r); }).join('') + '</div></section>'
+    };
+  };
+
+  /* ---------- Cozinha em Casa: escolha de ingredientes ---------- */
+  function gradeIngredientes() {
+    const q = L.norm(T.casa.busca);
+    const blocos = D.ordemCategorias.filter(function (c) { return c !== 'despensa'; }).map(function (c) {
+      const itens = Object.keys(D.ingredientes).filter(function (id) {
+        const g = D.ingredientes[id];
+        return g.c === c && !g.b && (!q || L.norm(g.n).indexOf(q) >= 0);
+      });
+      if (!itens.length) return '';
+      return '<div class="bloco-ing"><h3 class="bloco-titulo">' + esc(D.categorias[c]) + '</h3><div class="chips">' +
+        itens.map(function (id) {
+          const g = D.ingredientes[id];
+          const sel = T.casa.sel.has(id);
+          return '<button type="button" class="chip ' + (sel ? 'ativo' : '') + '" data-act="alternarIng" data-id="' + id + '" aria-pressed="' + sel + '">' +
+            '<span aria-hidden="true">' + g.e + '</span> ' + esc(g.n) + '</button>';
+        }).join('') + '</div></div>';
+    }).join('');
+    return blocos || '<p class="vazio-texto">Nenhum ingrediente encontrado para «' + esc(T.casa.busca) + '».</p>';
+  }
+
+  vistas.casa = function () {
+    const n = T.casa.sel.size;
+    return {
+      ativo: 'casa',
+      html:
+        cabecalhoPagina('Cozinha em Casa', 'O que tens disponível em casa? Seleciona os ingredientes.', '#') +
+        '<div class="ferramentas-casa">' +
+        '<div class="campo campo-busca"><label class="so-leitor" for="busca">Pesquisar ingrediente</label>' +
+        '<input id="busca" type="search" data-input="busca" placeholder="Pesquisar ingrediente…" value="' + esc(T.casa.busca) + '" autocomplete="off"></div>' +
+        '<div class="pessoas-mini"><span>Pessoas</span><div class="stepper">' +
+        '<button type="button" data-act="pessoasCasa" data-d="-1" aria-label="Menos uma pessoa">−</button>' +
+        '<output>' + T.casa.pessoas + '</output>' +
+        '<button type="button" data-act="pessoasCasa" data-d="1" aria-label="Mais uma pessoa">+</button></div></div>' +
+        '</div>' +
+        '<div class="atalhos"><button type="button" class="btn btn-sec btn-peq" data-act="presetFrigorifico">✨ Usar um frigorífico típico</button>' +
+        (n ? '<button type="button" class="btn btn-fantasma btn-peq" data-act="limparIng">Limpar tudo</button>' : '') + '</div>' +
+        '<p class="nota">Sal, azeite, pimenta e outros básicos da despensa são considerados como já tens em casa.</p>' +
+        '<div id="grade-ing">' + gradeIngredientes() + '</div>' +
+        '<div class="barra-fixa"><div class="barra-int">' +
+        '<span class="barra-info">' + (n ? '<strong>' + n + '</strong> ' + plural(n, 'ingrediente', 'ingredientes') : 'Escolhe pelo menos 2 ingredientes') + '</span>' +
+        '<button type="button" class="btn btn-primario btn-grande" data-act="gerarCasa"' + (n >= 2 ? '' : ' disabled') + '>Gerar 10 receitas</button>' +
+        '</div></div>',
+      classe: 'com-barra'
+    };
+  };
+
+  vistas['casa-receitas'] = function () {
+    if (T.casa.sel.size < 2) return { redirecionar: '#casa' };
+    if (!T.casa.resultados) T.casa.resultados = L.sugerirPorIngredientes(T.casa.sel, { semente: T.casa.semente });
+    const res = T.casa.resultados;
+    const semNada = res.every(function (i) { return i.tem.length === 0; });
+    const nomes = Array.from(T.casa.sel).map(function (id) { return D.ingredientes[id].n; });
+    const cartoes = res.map(function (i) {
+      const tudo = i.faltam.length === 0;
+      return cartaoReceita(i.receita, {
+        texto: tudo ? '✔ Tens tudo' : 'Tens ' + i.tem.length + ' de ' + i.total,
+        classe: tudo ? 'ok' : (i.tem.length ? 'meio' : 'nada')
+      });
+    }).join('');
+    return {
+      ativo: 'casa',
+      html:
+        cabecalhoPagina('As tuas 10 receitas', 'Com base no que tens em casa.', '#casa') +
+        '<div class="resumo-chips" aria-label="Ingredientes escolhidos">' + nomes.map(function (n) { return '<span class="chip pequeno">' + esc(n) + '</span>'; }).join('') + '</div>' +
+        (semNada ? '<p class="aviso">Não encontrámos receitas com estes ingredientes. Mostramos ideias para fazeres compras.</p>' : '') +
+        '<div class="grelha-receitas">' + cartoes + '</div>' +
+        '<div class="rodape-acoes">' +
+        '<button type="button" class="btn btn-sec" data-act="outrasCasa">🔄 Outras sugestões</button>' +
+        '<a class="btn btn-fantasma" href="#casa">Alterar ingredientes</a></div>'
+    };
+  };
+
+  /* ---------- Vou às Compras: questionário ---------- */
+  function valorSelecionado(passo) {
+    return T.compras.resp[passo.id];
+  }
+
+  function opcaoAtiva(passo, op) {
+    const v = valorSelecionado(passo);
+    return passo.multi ? v.indexOf(op.v) >= 0 : v === op.v;
+  }
+
+  vistas.compras = function () {
+    const i = T.compras.passo;
+    const passo = PASSOS[i];
+    const ultimo = i === PASSOS.length - 1;
+    const precisa = passo.id === 'prefs' && T.compras.resp.prefs.length === 0;
+    const opcoes = passo.op.map(function (op, k) {
+      const ativa = opcaoAtiva(passo, op);
+      return '<button type="button" class="opcao ' + (ativa ? 'ativo' : '') + '" data-act="opcao" data-k="' + k + '" aria-pressed="' + ativa + '">' +
+        '<span class="opcao-emoji" aria-hidden="true">' + op.e + '</span>' +
+        '<span class="opcao-texto"><strong>' + esc(op.l) + '</strong>' + (op.s ? '<small>' + esc(op.s) + '</small>' : '') + '</span>' +
+        '<span class="tique" aria-hidden="true">' + (ativa ? '✓' : '') + '</span></button>';
+    }).join('');
+    return {
+      ativo: 'compras',
+      html:
+        '<div class="pagina-estreita">' +
+        '<div class="progresso-cab"><a class="btn-voltar" href="#" aria-label="Sair do questionário">✕</a>' +
+        '<span>Passo ' + (i + 1) + ' de ' + PASSOS.length + '</span></div>' +
+        '<div class="progresso" role="progressbar" aria-valuemin="1" aria-valuemax="' + PASSOS.length + '" aria-valuenow="' + (i + 1) + '"><span style="width:' + ((i + 1) / PASSOS.length * 100) + '%"></span></div>' +
+        '<h1 class="titulo-pagina">' + esc(passo.titulo) + '</h1>' +
+        '<p class="sub">' + esc(passo.sub) + '</p>' +
+        '<div class="opcoes ' + (passo.id === 'prefs' || passo.id === 'restricoes' || passo.id === 'pessoas' ? 'duas-col' : '') + '">' + opcoes + '</div>' +
+        '<div class="rodape-acoes">' +
+        (i > 0 ? '<button type="button" class="btn btn-fantasma" data-act="anterior">← Anterior</button>' : '<span></span>') +
+        '<button type="button" class="btn btn-primario btn-grande" data-act="seguinte"' + (precisa ? ' disabled' : '') + '>' +
+        (ultimo ? 'Gerar 10 receitas' : precisa ? 'Escolhe pelo menos uma' : 'Seguinte →') + '</button></div></div>'
+    };
+  };
+
+  function resumoRespostas() {
+    const r = T.compras.resp;
+    const nomes = function (passoId, valores) {
+      const p = PASSOS.filter(function (x) { return x.id === passoId; })[0];
+      return valores.map(function (v) { return p.op.filter(function (o) { return o.v === v; })[0].l; });
+    };
+    const chips = [].concat(
+      nomes('prefs', r.prefs),
+      nomes('restricoes', r.restricoes),
+      [r.pessoas + ' ' + plural(r.pessoas, 'pessoa', 'pessoas')],
+      nomes('orcamento', [r.orcamento]),
+      nomes('tempo', [r.tempo])
+    );
+    return '<div class="resumo-chips">' + chips.map(function (c) { return '<span class="chip pequeno">' + esc(c) + '</span>'; }).join('') + '</div>';
+  }
+
+  vistas['compras-receitas'] = function () {
+    if (!T.compras.resultados) T.compras.resultados = L.sugerirPorPreferencias(T.compras.resp, { semente: T.compras.semente, indice: indicePreco() });
+    const res = T.compras.resultados;
+    const pessoas = T.compras.resp.pessoas;
+    const cartoes = res.itens.map(function (i) {
+      return cartaoReceita(i.receita, null, '~' + L.eur(i.custoPP) + ' / pessoa');
+    }).join('');
+    const avisos = res.avisos.map(function (a) { return '<p class="aviso">' + esc(a) + '</p>'; }).join('');
+    const d = dados();
+    const todasNaLista = res.itens.length && res.itens.every(function (i) { return d.lista.some(function (x) { return x.id === i.receita.id; }); });
+    const lista = res.itens.map(function (i) { return { id: i.receita.id, pessoas: pessoas, excluir: [] }; });
+    const total = L.consolidarLista(lista, indicePreco()).total;
+    return {
+      ativo: 'compras',
+      html:
+        cabecalhoPagina('As tuas receitas', 'Feitas à medida das tuas respostas.', '#compras') +
+        resumoRespostas() + avisos +
+        (res.itens.length ?
+          '<div class="cartao-lista"><div><strong>Lista de compras das ' + res.itens.length + ' receitas</strong>' +
+          '<span class="sub-peq">≈ ' + L.eur(total) + ' em ' + esc(lojaPrincipal().nome) + ' (estimativa)</span></div>' +
+          '<button type="button" class="btn btn-primario" data-act="adicionarTodas">' + (todasNaLista ? '✓ Já na lista' : '+ Adicionar todas à lista') + '</button></div>' : '') +
+        '<div class="grelha-receitas">' + cartoes + '</div>' +
+        '<div class="rodape-acoes">' +
+        '<button type="button" class="btn btn-sec" data-act="outrasCompras">🔄 Outras sugestões</button>' +
+        '<button type="button" class="btn btn-fantasma" data-act="refazer">Refazer questionário</button>' +
+        '<a class="btn btn-primario" href="#lista">Ver lista de compras</a></div>'
+    };
+  };
+
+  /* ---------- Detalhe da receita ---------- */
+  vistas.receita = function (id) {
+    const r = L.receitaPorId(id);
+    if (!r) return { redirecionar: '#' };
+    const d = dados();
+    const deCasa = T.rotaAnterior === 'casa-receitas' && T.casa.sel.size > 0;
+    const pessoas = T.receita.pessoas;
+    const f = L.fator(pessoas, r.porcoes);
+    const linhas = L.linhasIngredientes(r, pessoas);
+    const essenciais = linhas.filter(function (l) { return !l.basico; });
+    const tem = essenciais.filter(function (l) { return T.casa.sel.has(l.id); });
+    const faltam = essenciais.filter(function (l) { return !T.casa.sel.has(l.id); });
+    const favorita = d.favoritos.indexOf(r.id) >= 0;
+    const naLista = d.lista.some(function (x) { return x.id === r.id; });
+    const t = L.etiquetas(r);
+    const etiquetasTxt = [t.vegan ? 'Vegan' : (t.vegetariano ? 'Vegetariana' : ''), t.gluten ? '' : 'Sem glúten', t.lactose ? '' : 'Sem lactose']
+      .filter(Boolean);
+    const custoPP = L.custo(r, pessoas, indicePreco()) / pessoas;
+    const voltar = '#' + (T.rotaAnterior === 'inicio' ? '' : T.rotaAnterior);
+
+    const htmlIng = linhas.map(function (l) {
+      let marca = '';
+      if (deCasa && !l.basico) marca = T.casa.sel.has(l.id) ? '<span class="tag tag-ok">Tens</span>' : '<span class="tag tag-falta">Falta</span>';
+      return '<li class="ing-linha ' + (deCasa && !l.basico && !T.casa.sel.has(l.id) ? 'falta' : '') + '">' +
+        '<span class="ing-nome"><span aria-hidden="true">' + l.emoji + '</span> ' + esc(l.nome) + '</span>' +
+        '<span class="ing-qtd">' + esc(l.qtd) + '</span>' + marca + '</li>';
+    }).join('');
+
+    const htmlPassos = r.passos.map(function (p, i) {
+      const feito = T.receita.feitos.has(i);
+      return '<li class="passo ' + (feito ? 'feito' : '') + '"><button type="button" class="passo-btn" data-act="passo" data-i="' + i + '" aria-pressed="' + feito + '">' +
+        '<span class="passo-num">' + (feito ? '✓' : (i + 1)) + '</span><span class="passo-txt">' + esc(L.escalarPasso(p, f)) + '</span></button></li>';
+    }).join('');
+
+    return {
+      ativo: T.rotaAnterior === 'casa-receitas' ? 'casa' : T.rotaAnterior === 'compras-receitas' ? 'compras' : 'inicio',
+      html:
+        '<article class="receita">' +
+        '<div class="receita-hero">' + foto(r, 'foto-grande') +
+        '<a class="btn-voltar flutuante" href="' + voltar + '" aria-label="Voltar">←</a>' +
+        '<button type="button" class="btn-fav flutuante ' + (favorita ? 'ativo' : '') + '" data-act="favorito" data-id="' + r.id + '" aria-pressed="' + favorita + '" aria-label="' + (favorita ? 'Remover dos favoritos' : 'Guardar nos favoritos') + '">' + (favorita ? '♥' : '♡') + '</button></div>' +
+        '<div class="receita-corpo">' +
+        '<h1 class="titulo-pagina">' + esc(r.nome) + '</h1>' +
+        '<p class="sub">' + esc(r.desc) + '</p>' +
+        '<div class="pills">' +
+        '<span class="pill">⏱ ' + r.tempo + ' min</span><span class="pill">👩‍🍳 ' + esc(r.dificuldade) + '</span>' +
+        '<span class="pill">💶 ~' + L.eur(custoPP) + ' / pessoa</span>' +
+        etiquetasTxt.map(function (e) { return '<span class="pill pill-verde">' + esc(e) + '</span>'; }).join('') + '</div>' +
+        '<div class="receita-grelha">' +
+        '<section class="receita-col ingredientes" aria-labelledby="t-ing">' +
+        '<div class="sec-cab"><h2 class="sec-titulo" id="t-ing">Ingredientes</h2>' +
+        '<div class="stepper"><button type="button" data-act="pessoasReceita" data-d="-1" aria-label="Menos uma pessoa">−</button>' +
+        '<output>' + pessoas + ' ' + plural(pessoas, 'pessoa', 'pessoas') + '</output>' +
+        '<button type="button" data-act="pessoasReceita" data-d="1" aria-label="Mais uma pessoa">+</button></div></div>' +
+        (deCasa ? '<p class="resumo-casa">' + (faltam.length ? 'Tens ' + tem.length + ' de ' + essenciais.length + ' ingredientes. Faltam: ' + esc(faltam.map(function (x) { return x.nome.toLowerCase(); }).join(', ')) + '.' : '✔ Tens todos os ingredientes!') + '</p>' : '') +
+        '<ul class="lista-ing">' + htmlIng + '</ul>' +
+        '<button type="button" class="btn btn-primario btn-bloco" data-act="addLista" data-id="' + r.id + '">' +
+        (naLista ? '✓ Atualizar na lista de compras' : (deCasa && faltam.length ? '+ Adicionar o que falta à lista' : '+ Adicionar à lista de compras')) + '</button>' +
+        (naLista ? '<a class="btn btn-fantasma btn-bloco" href="#lista">Ver lista de compras</a>' : '') +
+        '</section>' +
+        '<section class="receita-col" aria-labelledby="t-pas"><h2 class="sec-titulo" id="t-pas">Modo de preparação</h2>' +
+        '<p class="nota">Toca num passo para o marcar como feito.</p>' +
+        '<ol class="lista-passos">' + htmlPassos + '</ol></section>' +
+        '</div></div></article>'
+    };
+  };
+
+  /* ---------- Lista de compras ---------- */
+  vistas.lista = function () {
+    const d = dados();
+    if (!d.lista.length) {
+      return {
+        ativo: 'lista',
+        html: cabecalhoPagina('Lista de compras', 'Aqui aparece tudo o que precisas de comprar.') +
+          '<div class="vazio"><div class="vazio-emoji" aria-hidden="true">🧾</div><h2>A tua lista está vazia</h2>' +
+          '<p>Adiciona receitas à lista e nós juntamos os ingredientes por secção, com o preço estimado.</p>' +
+          '<div class="rodape-acoes centrado"><a class="btn btn-primario" href="#compras">🛒 Vou às Compras</a><a class="btn btn-sec" href="#casa">🍳 Cozinha em Casa</a></div></div>'
+      };
+    }
+    const loja = lojaPrincipal();
+    const c = L.consolidarLista(d.lista, loja.indice);
+    const comparacao = d.lojas.length > 1 ? L.totalPorLoja(d.lista, d.lojas) : [];
+    const marcados = d.marcados;
+
+    const receitasHtml = d.lista.map(function (item) {
+      const r = L.receitaPorId(item.id);
+      if (!r) return '';
+      return '<li class="lista-receita"><a href="#receita-' + r.id + '" class="lr-nome">' + esc(r.nome) + '</a>' +
+        '<div class="stepper peq"><button type="button" data-act="pessoasLista" data-id="' + r.id + '" data-d="-1" aria-label="Menos uma pessoa">−</button>' +
+        '<output>' + item.pessoas + ' ' + plural(item.pessoas, 'pessoa', 'pessoas') + '</output>' +
+        '<button type="button" data-act="pessoasLista" data-id="' + r.id + '" data-d="1" aria-label="Mais uma pessoa">+</button></div>' +
+        '<button type="button" class="icone-btn" data-act="removerLista" data-id="' + r.id + '" aria-label="Remover ' + esc(r.nome) + ' da lista">✕</button></li>';
+    }).join('');
+
+    const gruposHtml = c.grupos.map(function (g) {
+      return '<section class="lista-grupo"><h3 class="bloco-titulo">' + esc(g.titulo) + '</h3><ul>' +
+        g.itens.map(function (i) {
+          const feito = !!marcados[i.id];
+          return '<li class="item-lista ' + (feito ? 'feito' : '') + '"><button type="button" class="item-btn" data-act="marcar" data-id="' + i.id + '" role="checkbox" aria-checked="' + feito + '">' +
+            '<span class="caixa" aria-hidden="true">' + (feito ? '✓' : '') + '</span>' +
+            '<span class="item-nome"><span aria-hidden="true">' + i.emoji + '</span> ' + esc(i.nome) +
+            '<small>' + i.embalagens + ' × ' + esc(L.formatarQtd(i.tamanhoEmbalagem, i.unidade)) + ' · precisas de ' + esc(L.formatarQtd(L.escalar(i.necessario, i.unidade, 1), i.unidade)) + '</small></span>' +
+            '<span class="item-preco">' + L.eur(i.preco) + '</span></button></li>';
+        }).join('') + '</ul></section>';
+    }).join('');
+
+    const lojasChips = d.lojas.map(function (id) {
+      const s = lojaPorId(id);
+      return '<button type="button" class="chip ' + (s.id === loja.id ? 'ativo' : '') + '" data-act="lojaLista" data-id="' + s.id + '" aria-pressed="' + (s.id === loja.id) + '">' + esc(s.nome) + '</button>';
+    }).join('');
+
+    const compHtml = comparacao.length > 1 ?
+      '<section class="comparacao"><h3 class="bloco-titulo">Onde sai mais barato?</h3><ol>' +
+      comparacao.map(function (x, k) {
+        return '<li class="' + (k === 0 ? 'melhor' : '') + '"><span>' + esc(x.nome) + (k === 0 ? ' <span class="selo-info ok">Mais barato</span>' : '') + '</span><strong>' + L.eur(x.total) + '</strong></li>';
+      }).join('') + '</ol></section>' : '';
+
+    return {
+      ativo: 'lista',
+      html:
+        cabecalhoPagina('Lista de compras', c.itens + ' ' + plural(c.itens, 'artigo', 'artigos') + ' · ' + d.lista.length + ' ' + plural(d.lista.length, 'receita', 'receitas')) +
+        '<div class="lista-layout"><div class="lista-principal">' +
+        '<div class="loja-escolha"><span class="sub-peq">Preços estimados em:</span><div class="chips">' + lojasChips + '</div></div>' +
+        gruposHtml +
+        (c.basicos.length ? '<section class="lista-grupo basicos"><h3 class="bloco-titulo">Básicos da despensa (confirma se tens)</h3><p class="basicos-txt">' +
+          c.basicos.map(function (b) { return esc(b.nome); }).join(' · ') + '</p></section>' : '') +
+        '</div><aside class="lista-lateral">' +
+        '<div class="total"><span>Total estimado</span><strong>' + L.eur(c.total) + '</strong><small>em ' + esc(loja.nome) + ' · preços de demonstração</small></div>' +
+        compHtml +
+        '<section class="lista-grupo"><h3 class="bloco-titulo">Receitas na lista</h3><ul class="lista-receitas">' + receitasHtml + '</ul></section>' +
+        '<div class="acoes-col"><button type="button" class="btn btn-primario btn-bloco" data-act="copiarLista">📋 Copiar lista</button>' +
+                '<button type="button" class="btn btn-fantasma btn-bloco" data-act="desmarcarTudo">Desmarcar tudo</button>' +
+        '<button type="button" class="btn btn-fantasma btn-bloco perigo" data-act="limparLista">Esvaziar lista</button></div>' +
+        '</aside></div>'
+    };
+  };
+
+  /* ---------- Perfil ---------- */
+  vistas.perfil = function () {
+    const u = utilizador();
+    const d = dados();
+    const lojas = d.lojas.map(lojaPorId).filter(Boolean);
+    const principal = lojaPrincipal();
+    const favoritas = d.favoritos.map(L.receitaPorId).filter(Boolean);
+    return {
+      ativo: 'perfil',
+      html:
+        cabecalhoPagina('O meu perfil') +
+        '<section class="cartao-perfil"><div class="avatar grande" aria-hidden="true">' + esc(u.nome.charAt(0).toUpperCase()) + '</div>' +
+        '<div><strong class="perfil-nome">' + esc(u.nome) + '</strong>' +
+        '<span class="sub-peq">' + (u.convidado ? 'Modo convidado (dados só neste dispositivo)' : esc(S.sessao)) + '</span></div></section>' +
+        '<section class="bloco-perfil"><div class="sec-cab"><h2 class="sec-titulo">Os meus supermercados</h2><a class="ligacao" href="#lojas">Alterar</a></div>' +
+        '<div class="chips">' + lojas.map(function (s) {
+          return '<button type="button" class="chip ' + (s.id === principal.id ? 'ativo' : '') + '" data-act="definirPrincipal" data-id="' + s.id + '" aria-pressed="' + (s.id === principal.id) + '">' + esc(s.nome) + (s.id === principal.id ? ' · principal' : '') + '</button>';
+        }).join('') + '</div><p class="nota">Toca numa loja para a definires como principal (usada nos preços estimados).</p></section>' +
+        '<section class="bloco-perfil"><div class="sec-cab"><h2 class="sec-titulo">Receitas favoritas</h2></div>' +
+        (favoritas.length ? '<div class="grelha-receitas">' + favoritas.map(function (r) { return cartaoReceita(r); }).join('') + '</div>' :
+          '<p class="vazio-texto">Ainda não tens favoritas. Toca no ♡ numa receita para a guardares aqui.</p>') + '</section>' +
+        '<section class="bloco-perfil acoes-conta">' +
+        '<button type="button" class="btn btn-sec" data-act="sair">' + (u.convidado ? 'Sair do modo convidado' : 'Terminar sessão') + '</button>' +
+        '<button type="button" class="btn btn-fantasma perigo" data-act="apagarTudo">Apagar todos os dados deste dispositivo</button></section>'
+    };
+  };
+
+  /* ---------- Janela de loja (modal) ---------- */
+  function modalLoja() {
+    if (!T.lojaAberta) return '';
+    const s = lojaPorId(T.lojaAberta);
+    if (!s) return '';
+    const principal = lojaPrincipal().id === s.id;
+    const pct = Math.round((s.indice - 1) * 100);
+    const texto = pct === 0 ? 'Preços na média' : pct < 0 ? 'Cerca de ' + Math.abs(pct) + '% abaixo da média' : 'Cerca de ' + pct + '% acima da média';
+    return '<div class="modal" data-act="fecharModal" role="presentation"><div class="folha" role="dialog" aria-modal="true" aria-labelledby="m-t">' +
+      '<button type="button" class="icone-btn fechar" data-act="fecharModal" aria-label="Fechar">✕</button>' +
+      seloLoja(s, 'enorme') +
+      '<h2 id="m-t">' + esc(s.nome) + '</h2>' +
+      '<p class="sub">📍 ' + L.num(s.dist) + ' km de ti · ' + esc(texto) + '</p>' +
+      '<p class="nota">Distância e preços de demonstração.</p>' +
+      '<div class="acoes-col">' +
+      '<button type="button" class="btn btn-primario btn-bloco" data-act="definirPrincipal" data-id="' + s.id + '" data-fechar="1"' + (principal ? ' disabled' : '') + '>' + (principal ? '✓ É a tua loja principal' : 'Definir como loja principal') + '</button>' +
+      '<a class="btn btn-sec btn-bloco" href="#lista" data-act="fecharModal">Ver a minha lista aqui</a>' +
+      '</div></div></div>';
+  }
+
+  /* =========================================================
+   * Router
+   * ======================================================= */
+  function rotaAtual() {
+    const h = (location.hash || '').replace(/^#\/?/, '').replace(/\/+$/, '');
+    return h;
+  }
+
+  function ir(hash) {
+    if (location.hash === hash) render();
+    else location.hash = hash;
+  }
+
+  let ultimaRota = null;
+
+  function resolver(rota) {
+    if (rota.indexOf('receita-') === 0) return { nome: 'receita', arg: rota.slice(8) };
+    if (!rota) return { nome: 'inicio' };
+    return { nome: rota };
+  }
+
+  function render() {
+    let rota = rotaAtual();
+    const u = utilizador();
+    const d = dados();
+
+    // Guardas de acesso
+    if (!u) {
+      if (rota !== 'entrar') { ir('#entrar'); return; }
+    } else if (rota === 'entrar') {
+      ir('#'); return;
+    } else if (!d.lojas.length && rota !== 'lojas') {
+      ir('#lojas'); return;
+    }
+
+    const res = resolver(rota);
+    const fn = vistas[res.nome];
+    if (!fn) { ir('#'); return; }
+
+    // Registar de onde vimos (para o botão "voltar" e para saber se vimos de "em casa")
+    if (res.nome !== 'receita') T.rotaAnterior = res.nome === 'inicio' ? 'inicio' : res.nome;
+    if (res.nome === 'receita' && T.receita.id !== res.arg) {
+      T.receita = {
+        id: res.arg, feitos: new Set(),
+        pessoas: T.rotaAnterior === 'casa-receitas' ? T.casa.pessoas : T.rotaAnterior === 'compras-receitas' ? T.compras.resp.pessoas : 2
+      };
+    }
+    if (res.nome !== 'receita') T.receita.id = null;
+
+    const saida = fn(res.arg);
+    if (saida.redirecionar) { ir(saida.redirecionar); return; }
+
+    const y = window.scrollY || 0;
+    const html = saida.sem ? '<main id="principal" tabindex="-1">' + saida.html + '</main>' : moldura(saida.html, saida.ativo, { classe: saida.classe });
+    $app.innerHTML = html + modalLoja();
+    document.title = (res.nome === 'receita' && L.receitaPorId(res.arg) ? L.receitaPorId(res.arg).nome + ' · ' : '') + 'O Que Há Para Jantar?';
+
+    if (ultimaRota !== rota) {
+      window.scrollTo(0, 0);
+      const p = document.getElementById('principal');
+      if (p && p.focus) p.focus({ preventScroll: true });
+      ultimaRota = rota;
+    } else {
+      window.scrollTo(0, y);
+    }
+  }
+
+  /* =========================================================
+   * Autenticação (demonstração: sem servidor)
+   * ======================================================= */
+  async function resumo(texto) {
+    if (window.crypto && window.crypto.subtle && window.TextEncoder) {
+      const buf = await window.crypto.subtle.digest('SHA-256', new TextEncoder().encode(texto));
+      return Array.from(new Uint8Array(buf)).map(function (b) { return b.toString(16).padStart(2, '0'); }).join('');
+    }
+    let h = 0;
+    for (let i = 0; i < texto.length; i++) h = (h * 31 + texto.charCodeAt(i)) | 0;
+    return 'f' + h;
+  }
+
+  async function submeterAuth(form) {
+    const fd = new FormData(form);
+    const nome = String(fd.get('nome') || '').trim();
+    const email = String(fd.get('email') || '').trim().toLowerCase();
+    const pass = String(fd.get('pass') || '');
+    const criar = T.auth.modo === 'criar';
+    const erro = function (m) { T.auth.erro = m; render(); };
+
+    if (criar && nome.length < 2) return erro('Indica o teu nome.');
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return erro('Indica um e-mail válido.');
+    if (pass.length < 6) return erro('A palavra-passe deve ter pelo menos 6 caracteres.');
+
+    const hash = await resumo(email + '|' + pass);
+    if (criar) {
+      if (S.users[email]) return erro('Já existe uma conta com este e-mail.');
+      S.users[email] = { nome: nome, hash: hash, dados: dadosVazios() };
+    } else {
+      const u = S.users[email];
+      if (!u || u.hash !== hash) return erro('E-mail ou palavra-passe incorretos.');
+    }
+    S.sessao = email;
+    T.auth = { modo: 'entrar', erro: '' };
+    guardar();
+    ir('#');
+  }
+
+  /* =========================================================
+   * Ações (delegação de eventos)
+   * ======================================================= */
+  function adicionarALista(receitaId, pessoas, excluir) {
+    const d = dados();
+    const existente = d.lista.filter(function (x) { return x.id === receitaId; })[0];
+    if (existente) {
+      existente.pessoas = pessoas;
+      existente.excluir = excluir;
+      return false;
+    }
+    d.lista.push({ id: receitaId, pessoas: pessoas, excluir: excluir });
+    return true;
+  }
+
+  function mudarPessoas(valor, delta) {
+    return Math.min(12, Math.max(1, valor + delta));
+  }
+
+  // Segundo toque no espaço de 4 s confirma (window.confirm não existe em todos os ambientes).
+  function confirmar(chave, aviso) {
+    if (T.conf === chave) { T.conf = null; return true; }
+    T.conf = chave;
+    mostrarToast(aviso + ' Toca outra vez para confirmar.');
+    clearTimeout(confirmar.t);
+    confirmar.t = setTimeout(function () { T.conf = null; }, 4000);
+    return false;
+  }
+
+  const acoes = {
+    /* Autenticação */
+    modoAuth: function (el) { T.auth.modo = el.dataset.val; T.auth.erro = ''; render(); },
+    verPass: function (el) {
+      const i = el.parentNode.querySelector('input');
+      i.type = i.type === 'password' ? 'text' : 'password';
+    },
+    convidado: function () {
+      const id = 'convidado@local';
+      if (!S.users[id]) S.users[id] = { nome: 'Convidado', convidado: true, dados: dadosVazios() };
+      S.sessao = id;
+      guardar();
+      ir('#');
+    },
+    sair: function () { S.sessao = null; T.auth = { modo: 'entrar', erro: '' }; guardar(); T.casa.sel = new Set(); T.casa.resultados = null; T.compras.resultados = null; ir('#entrar'); },
+    apagarTudo: function () {
+      if (!confirmar('apagar', 'Vais apagar todas as contas e dados deste dispositivo.')) return;
+      try { localStorage.removeItem(CHAVE); } catch (e) { /* ignorar */ }
+      S = { users: {}, sessao: null };
+      T.auth = { modo: 'entrar', erro: '' };
+      T.casa.sel = new Set(); T.casa.resultados = null; T.compras.resultados = null;
+      ir('#entrar');
+    },
+
+    /* Supermercados */
+    alternarLoja: function (el) {
+      const d = dados();
+      const id = el.dataset.id;
+      const i = d.lojas.indexOf(id);
+      if (i >= 0) d.lojas.splice(i, 1); else d.lojas.push(id);
+      guardar(); render();
+    },
+    todasLojas: function () {
+      const d = dados();
+      d.lojas = d.lojas.length === D.supermercados.length ? [] : D.supermercados.map(function (s) { return s.id; });
+      guardar(); render();
+    },
+    confirmarLojas: function () {
+      const d = dados();
+      if (!d.lojas.length) return;
+      if (!d.principal || d.lojas.indexOf(d.principal) < 0) {
+        d.principal = d.lojas.map(lojaPorId).sort(function (a, b) { return a.dist - b.dist; })[0].id;
+      }
+      guardar();
+      ir('#');
+    },
+    abrirLoja: function (el) { T.lojaAberta = el.dataset.id; render(); },
+    fecharModal: function (el, ev) {
+      if (el.classList.contains('modal') && ev.target !== el) return;
+      T.lojaAberta = null; render();
+    },
+    definirPrincipal: function (el) {
+      const d = dados();
+      d.principal = el.dataset.id;
+      guardar();
+      if (el.dataset.fechar) T.lojaAberta = null;
+      mostrarToast(lojaPorId(d.principal).nome + ' é agora a tua loja principal.');
+      render();
+    },
+    carrossel: function (el) {
+      const faixa = el.closest('section').querySelector('.faixa');
+      faixa.scrollBy({ left: Number(el.dataset.dir) * 280, behavior: 'smooth' });
+    },
+
+    /* Cozinha em Casa */
+    alternarIng: function (el) {
+      const id = el.dataset.id;
+      if (T.casa.sel.has(id)) T.casa.sel.delete(id); else T.casa.sel.add(id);
+      T.casa.resultados = null;
+      render();
+    },
+    limparIng: function () { T.casa.sel = new Set(); T.casa.resultados = null; render(); },
+    presetFrigorifico: function () {
+      ['ovos', 'cebola', 'alho', 'batata', 'arroz', 'esparguete', 'tomate', 'atum_lata', 'cenoura', 'queijo_ralado']
+        .forEach(function (id) { T.casa.sel.add(id); });
+      T.casa.resultados = null;
+      render();
+    },
+    pessoasCasa: function (el) { T.casa.pessoas = mudarPessoas(T.casa.pessoas, Number(el.dataset.d)); render(); },
+    gerarCasa: function () {
+      if (T.casa.sel.size < 2) return;
+      T.casa.semente = 0;
+      T.casa.resultados = null;
+      ir('#casa-receitas');
+    },
+    outrasCasa: function () {
+      T.casa.semente += 1;
+      T.casa.resultados = L.sugerirPorIngredientes(T.casa.sel, { semente: T.casa.semente });
+      render();
+      window.scrollTo(0, 0);
+    },
+
+    /* Vou às Compras */
+    opcao: function (el) {
+      const passo = PASSOS[T.compras.passo];
+      const op = passo.op[Number(el.dataset.k)];
+      const resp = T.compras.resp;
+      if (passo.multi) {
+        const arr = resp[passo.id];
+        const i = arr.indexOf(op.v);
+        if (i >= 0) arr.splice(i, 1); else arr.push(op.v);
+      } else {
+        resp[passo.id] = op.v;
+      }
+      render();
+    },
+    anterior: function () { if (T.compras.passo > 0) { T.compras.passo -= 1; render(); } },
+    seguinte: function () {
+      if (T.compras.passo < PASSOS.length - 1) { T.compras.passo += 1; render(); window.scrollTo(0, 0); return; }
+      T.compras.semente = 0;
+      T.compras.resultados = null;
+      ir('#compras-receitas');
+    },
+    outrasCompras: function () {
+      T.compras.semente += 1;
+      T.compras.resultados = L.sugerirPorPreferencias(T.compras.resp, { semente: T.compras.semente, indice: indicePreco() });
+      render();
+      window.scrollTo(0, 0);
+    },
+    refazer: function () { T.compras.passo = 0; T.compras.resultados = null; ir('#compras'); },
+    adicionarTodas: function () {
+      const res = T.compras.resultados;
+      if (!res) return;
+      let novas = 0;
+      res.itens.forEach(function (i) {
+        if (adicionarALista(i.receita.id, T.compras.resp.pessoas, [])) novas += 1;
+      });
+      guardar();
+      mostrarToast(novas ? novas + ' ' + plural(novas, 'receita adicionada', 'receitas adicionadas') + ' à lista.' : 'Estas receitas já estavam na lista.');
+      render();
+    },
+
+    /* Receita */
+    pessoasReceita: function (el) { T.receita.pessoas = mudarPessoas(T.receita.pessoas, Number(el.dataset.d)); render(); },
+    passo: function (el) {
+      const i = Number(el.dataset.i);
+      if (T.receita.feitos.has(i)) T.receita.feitos.delete(i); else T.receita.feitos.add(i);
+      render();
+    },
+    favorito: function (el) {
+      const d = dados();
+      const id = el.dataset.id;
+      const i = d.favoritos.indexOf(id);
+      if (i >= 0) { d.favoritos.splice(i, 1); mostrarToast('Removida dos favoritos.'); }
+      else { d.favoritos.push(id); mostrarToast('Guardada nos favoritos ♥'); }
+      guardar(); render();
+    },
+    addLista: function (el) {
+      const id = el.dataset.id;
+      const deCasa = T.rotaAnterior === 'casa-receitas' && T.casa.sel.size > 0;
+      const excluir = deCasa ? Array.from(T.casa.sel) : [];
+      const nova = adicionarALista(id, T.receita.pessoas, excluir);
+      guardar();
+      mostrarToast(nova ? 'Adicionada à lista de compras.' : 'Lista atualizada.');
+      render();
+    },
+
+    /* Lista de compras */
+    pessoasLista: function (el) {
+      const item = dados().lista.filter(function (x) { return x.id === el.dataset.id; })[0];
+      if (!item) return;
+      item.pessoas = mudarPessoas(item.pessoas, Number(el.dataset.d));
+      guardar(); render();
+    },
+    removerLista: function (el) {
+      const d = dados();
+      d.lista = d.lista.filter(function (x) { return x.id !== el.dataset.id; });
+      guardar(); render();
+    },
+    limparLista: function () {
+      if (!confirmar('esvaziar', 'Vais esvaziar a lista de compras.')) return;
+      const d = dados();
+      d.lista = []; d.marcados = {};
+      guardar(); render();
+    },
+    marcar: function (el) {
+      const d = dados();
+      const id = el.dataset.id;
+      if (d.marcados[id]) delete d.marcados[id]; else d.marcados[id] = true;
+      guardar(); render();
+    },
+    desmarcarTudo: function () { dados().marcados = {}; guardar(); render(); },
+    lojaLista: function (el) { dados().principal = el.dataset.id; guardar(); render(); },
+    copiarLista: function () {
+      const d = dados();
+      const loja = lojaPrincipal();
+      const texto = L.listaComoTexto(d.lista, loja.indice, loja.nome);
+      const ok = function () { mostrarToast('Lista copiada para a área de transferência.'); };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(texto).then(ok, function () { copiarAlternativo(texto); ok(); });
+      } else { copiarAlternativo(texto); ok(); }
+    }
+  };
+
+  function copiarAlternativo(texto) {
+    const ta = document.createElement('textarea');
+    ta.value = texto;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); } catch (e) { /* ignorar */ }
+    document.body.removeChild(ta);
+  }
+
+  document.addEventListener('click', function (ev) {
+    const el = ev.target.closest('[data-act]');
+    if (!el || !acoes[el.dataset.act]) return;
+    if (el.disabled) return;
+    acoes[el.dataset.act](el, ev);
+  });
+
+  document.addEventListener('submit', function (ev) {
+    const form = ev.target.closest('form[data-form]');
+    if (!form) return;
+    ev.preventDefault();
+    if (form.dataset.form === 'auth') submeterAuth(form);
+  });
+
+  document.addEventListener('input', function (ev) {
+    if (ev.target && ev.target.dataset && ev.target.dataset.input === 'busca') {
+      T.casa.busca = ev.target.value;
+      const g = document.getElementById('grade-ing');
+      if (g) g.innerHTML = gradeIngredientes();
+    }
+  });
+
+  document.addEventListener('keydown', function (ev) {
+    if (ev.key === 'Escape' && T.lojaAberta) { T.lojaAberta = null; render(); }
+  });
+
+  // Se uma fotografia não carregar, mostra-se o fundo colorido com o emoji do prato.
+  document.addEventListener('error', function (ev) {
+    const alvo = ev.target;
+    if (alvo && alvo.tagName === 'IMG' && alvo.parentNode && alvo.parentNode.classList.contains('foto')) {
+      alvo.parentNode.classList.add('sem-foto');
+      alvo.remove();
+    }
+  }, true);
+
+  window.addEventListener('hashchange', render);
+
+  // Para testes automáticos (Node) e depuração.
+  window.OQHPJ_APP = { vistas: vistas, estado: function () { return S; }, T: T, render: render, acoes: acoes, PASSOS: PASSOS };
+
+  render();
+})();
+
+</script>
+</body>
+</html>
